@@ -66,7 +66,7 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
       {/* Col 1 — left: mode pill + services dropdown */}
       <div className="flex items-center gap-5">
         <div
-          className="liquid-glass flex items-center gap-0.75 p-0.75 rounded-full shrink-0"
+          className="liquid-glass flex items-center gap-1.5 p-1 rounded-full shrink-0"
           style={{ background: "rgba(255,255,255,0.09)" }}
         >
           <button
@@ -146,11 +146,11 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
         <button
           aria-label="Contact"
           onClick={onOpenContact}
-          className="liquid-glass w-9 h-9 rounded-full flex items-center justify-center shrink-0
+          className="liquid-glass w-11 h-11 rounded-full flex items-center justify-center shrink-0
             text-white/55 hover:text-white transition-colors duration-300"
           style={{ background: "rgba(255,255,255,0.09)" }}
         >
-          <MousePointer2 size={13} strokeWidth={1.5} />
+          <MousePointer2 size={14} strokeWidth={1.8} />
         </button>
 
         <button
@@ -160,7 +160,7 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
             hover:brightness-125 active:scale-95 transition-all duration-300 whitespace-nowrap"
         >
           Get in Touch
-          <ArrowRight size={13} strokeWidth={2.5} />
+          <ArrowRight size={14} strokeWidth={1.8} />
         </button>
       </div>
     </header>

@@ -57,11 +57,9 @@ export default function HeroSection({ loaded, onOpenContact }: HeroSectionProps)
         </h1>
 
         <div ref={textRef} style={{ opacity: 0 }} className="md:mb-8">
-          <div className="liquid-glass inline-flex px-8 py-3 rounded-full">
-            <p className="font-sans text-white/75 text-xs uppercase tracking-[0.2em]">
-              The Authority on the Next Digital Generation
-            </p>
-          </div>
+          <p className="font-sans text-white/55 text-[11px] font-medium uppercase tracking-[0.3em]">
+            The Authority on the Next Digital Generation
+          </p>
         </div>
         <div ref={btnRef} style={{ opacity: 0 }}>
           <button
