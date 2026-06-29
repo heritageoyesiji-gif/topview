@@ -59,11 +59,11 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center
+      className="fixed top-0 left-0 right-0 z-50 flex items-center
         h-14 md:h-20 px-5 md:px-12
         bg-[#0d0d0d]/80 backdrop-blur-md border-b border-white/[0.07]"
     >
-      {/* Col 1 — left: mode pill + services dropdown */}
+      {/* Left — mode pill + services dropdown */}
       <div className="flex items-center gap-5">
         <div
           className="liquid-glass flex items-center gap-1.5 p-1 rounded-full shrink-0"
@@ -133,16 +133,16 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
         )}
       </div>
 
-      {/* Col 2 — center: logo */}
+      {/* Center — logo, absolutely centered so left/right widths don't affect it */}
       <a
         href="/"
-        className="font-bold text-white text-[15px] tracking-[0.22em] uppercase select-none"
+        className="absolute left-1/2 -translate-x-1/2 font-bold text-white text-[15px] tracking-[0.22em] uppercase select-none pointer-events-auto"
       >
         TopView
       </a>
 
-      {/* Col 3 — right: icon button + CTA */}
-      <div className="flex items-center justify-end gap-2.5">
+      {/* Right — icon button + CTA */}
+      <div className="ml-auto flex items-center gap-2.5">
         <button
           aria-label="Contact"
           onClick={onOpenContact}

@@ -26,7 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${barlowCondensed.variable}`}>
+    <html lang="en" className={`${geist.variable} ${barlowCondensed.variable} overflow-x-hidden`}>
       <body className="bg-black text-white antialiased overflow-x-hidden">
         <SmoothScrollProvider>
           <CustomCursor />
