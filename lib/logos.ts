@@ -8,7 +8,7 @@ export interface BrandLogo {
 export const BRAND_LOGOS: BrandLogo[] = [
   { src: "/logos/broadus-sm.png",    name: "Broadus Foods"    },
   { src: "/logos/bud-light.png",     name: "Bud Light"        },
-  { src: "/logos/champs-sports.png", name: "Champs Sports"    },
+  { src: "/logos/champs-sports.png", name: "Champs Sports",   scale: 1.35 },
   { src: "/logos/complexcon.png",    name: "ComplexCon"       },
   { src: "/logos/finishline.png",    name: "Finish Line",     scale: 1.2  },
   { src: "/logos/flexx.png",         name: "Flexx Nutrition", scale: 1.2  },

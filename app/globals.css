@@ -227,7 +227,7 @@ header {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.brand-logos { background: #0a0a0a; overflow: hidden; }
+.brand-logos { background: #000; overflow: hidden; }
 .brand-logos-inner {
   margin: 48px 0;
   padding: 8px 0;
