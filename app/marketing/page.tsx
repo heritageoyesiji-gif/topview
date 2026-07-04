@@ -9,6 +9,7 @@ import Image from "next/image";
 import SiteHeader from "@/components/shared/SiteHeader";
 import SiteFooter from "@/components/shared/SiteFooter";
 import ContactModal from "@/components/shared/ContactModal";
+import IntakePopup from "@/components/marketing/IntakePopup";
 
 /* ════════════════════════════════════════
    Marketing Page
@@ -116,7 +117,11 @@ export default function MarketingPage() {
           <div className="mkt-logos-track">
             {[...PARTNER_LOGOS, ...PARTNER_LOGOS].map((logo, i) => (
               <div key={i} className="mkt-logo-item">
-                <img src={logo.src} alt={logo.name} />
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
+                />
               </div>
             ))}
           </div>
@@ -305,7 +310,7 @@ export default function MarketingPage() {
             {
               video: "/videos/talentroster-1.mp4",
               service: "Creator Campaigns",
-              stat: "12M+",
+              stat: "250M+",
               label: "Total Creator Views Generated",
               desc: "AI-matched influencer campaigns drove over 12 million organic views across brand partner content.",
               tags: ["AI Matching", "Creators", "Organic"],
@@ -313,7 +318,7 @@ export default function MarketingPage() {
             {
               video: "/videos/talentroster-2.mp4",
               service: "Paid Media",
-              stat: "4.2×",
+              stat: "7.5×",
               label: "Average Return On Ad Spend",
               desc: "Precision-targeted paid campaigns consistently outperform industry benchmarks across Meta and TikTok.",
               tags: ["Paid Ads", "Meta", "TikTok"],
@@ -321,7 +326,7 @@ export default function MarketingPage() {
             {
               video: "/videos/talentroster-3.mp4",
               service: "AI Systems",
-              stat: "68%",
+              stat: "85%",
               label: "Reduction In Manual Operations",
               desc: "Custom AI automation workflows cut client overhead by 68%, freeing teams to focus on what matters.",
               tags: ["Automation", "AI", "Workflows"],
@@ -329,7 +334,7 @@ export default function MarketingPage() {
             {
               video: "/videos/talentroster-4.mp4",
               service: "Web & Development",
-              stat: "3.1×",
+              stat: "5.4×",
               label: "Average Conversion Rate Uplift",
               desc: "Conversion-optimised websites and funnels tripled inbound lead quality and cut cost-per-acquisition.",
               tags: ["Design", "Dev", "CRO"],
@@ -362,87 +367,119 @@ export default function MarketingPage() {
         {/* Header */}
         <div className="mkt-work-header">
           <div>
-            <p className="mkt-work-eyebrow">Our Work</p>
+            <p className="mkt-work-eyebrow">Recognition</p>
             <h2 className="mkt-work-title" data-reveal>
-              Results You<br />Can See.
+              Accolades<br />(Impact).
             </h2>
           </div>
-          <span className="mkt-work-count">07 Projects</span>
+          <span className="mkt-work-count">07 Accolades</span>
         </div>
 
-        {/* Editorial image grid */}
-        <div className="mkt-work-grid">
+        {/* Accolade pills — expand on hover to reveal impact */}
+        <div className="mkt-acc-grid">
           {[
             {
-              num: "01",
               img: "/images/work/bud-light.jpg",
               client: "Bud Light",
               service: "Influencer Marketing",
+              blurb: "40M+ impressions across a national creator rollout.",
+              icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              ),
             },
             {
-              num: "02",
               img: "/images/work/colostrum.jpg",
               client: "Colostrum Co.",
               service: "Lead Generation",
+              blurb: "3.2× qualified pipeline growth in 90 days.",
+              icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                </svg>
+              ),
             },
             {
-              num: "03",
               img: "/images/work/fitness-girls.jpg",
               client: "FitFounders",
               service: "AI Influencer Marketing",
-              wide: true,
+              blurb: "AI-matched creators drove 12M+ organic views.",
+              icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 3v18M5.6 5.6l12.8 12.8M3 12h18M5.6 18.4 18.4 5.6"/>
+                </svg>
+              ),
             },
             {
-              num: "04",
               img: "/images/work/law-firm.jpg",
               client: "Premier Legal",
               service: "Business Branding",
+              blurb: "Rebrand that doubled inbound consultations.",
+              icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="8" r="6"/><path d="M15.5 12.5 17 22l-5-3-5 3 1.5-9.5"/>
+                </svg>
+              ),
             },
             {
-              num: "05",
               img: "/images/work/meal-prep.jpg",
               client: "PrepNation",
               service: "AI Automation",
+              blurb: "85% of operations automated end-to-end.",
+              icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              ),
             },
             {
-              num: "06",
               img: "/images/work/moroccan-tea.jpg",
               client: "Marrakech Tea Co.",
               service: "Brand Identity",
+              blurb: "Packaging that tripled retail shelf pickup.",
+              icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              ),
             },
             {
-              num: "07",
               img: "/images/work/nomad-tax.jpg",
               client: "NomadTax",
               service: "Business Branding",
+              blurb: "Conversion-first build that halved cost-per-lead.",
               wide: true,
+              icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                </svg>
+              ),
             },
           ].map((p, i) => (
             <div
-              key={p.num}
-              className={`mkt-work-card${p.wide ? " mkt-work-card--wide" : ""}`}
+              key={p.client}
+              className={`mkt-acc-card${p.wide ? " mkt-acc-card--wide" : ""}`}
               data-reveal="scale"
-              data-d={String((i % 3) + 1)}
+              data-d={String((i % 2) + 1)}
               onClick={openModal}
             >
               <Image
                 src={p.img}
                 alt={p.client}
                 fill
-                sizes="(max-width: 767px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 767px) 100vw, 50vw"
                 style={{ objectFit: "cover" }}
               />
-              <div className="mkt-work-overlay" />
-              <span className="mkt-work-num">{p.num}</span>
-              <div className="mkt-work-meta">
-                <div className="mkt-work-info">
-                  <span className="mkt-work-service">{p.service}</span>
-                  <h3 className="mkt-work-client">{p.client}</h3>
-                </div>
-                <div className="mkt-work-arrow">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
-                  </svg>
+              <div className="mkt-acc-overlay" />
+              <div className="mkt-acc-body">
+                <div className="mkt-acc-icon">{p.icon}</div>
+                <h3 className="mkt-acc-title">{p.client}</h3>
+                <div className="mkt-acc-reveal">
+                  <div className="mkt-acc-reveal-inner">
+                    <p className="mkt-acc-service">{p.service}</p>
+                    <p className="mkt-acc-blurb">{p.blurb}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -587,7 +624,7 @@ export default function MarketingPage() {
                 </svg>
               ),
               title: "Proven Track Record",
-              desc: "12M+ views. 4.2× ROAS. 68% ops reduction. Results you can verify — not case studies we wrote ourselves.",
+              desc: "250M+ views. 7.5× ROAS. 85% ops reduction. Results you can verify — not case studies we wrote ourselves.",
             },
           ].map((b, i) => (
             <div key={b.title} className="mkt-benefit-card" data-reveal data-d={String((i % 3) + 1)}>
@@ -613,6 +650,7 @@ export default function MarketingPage() {
 
       <SiteFooter onOpenContact={openModal} />
       <ContactModal isOpen={modalOpen} onClose={closeModal} />
+      <IntakePopup />
     </div>
   );
 }

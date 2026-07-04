@@ -4,14 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { transitionTo } from "@/lib/pageTransition";
 import { BRAND_LOGOS as TALENT_LOGOS } from "@/lib/logos";
-import BookingCalendar from "@/components/shared/BookingCalendar";
+import CalendlyEmbed from "@/components/shared/CalendlyEmbed";
 import { lockScroll, unlockScroll } from "@/lib/scrollLock";
-
-function formatSlot(date: Date | null, time: string | null) {
-  if (!date) return null;
-  const d = date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
-  return time ? `${d} · ${time}` : d;
-}
 
 /* ─────────────────────────────────────────
    Carousel hook — shared by both carousels
@@ -119,8 +113,6 @@ export default function Page() {
   const [formName, setFormName]         = useState("");
   const [formEmail, setFormEmail]       = useState("");
   const [formMessage, setFormMessage]   = useState("");
-  const [bookDate, setBookDate]         = useState<Date | null>(null);
-  const [bookTime, setBookTime]         = useState<string | null>(null);
 
   // Refs
   const stmtInnerRef     = useRef<HTMLDivElement>(null);
@@ -230,13 +222,9 @@ export default function Page() {
         setFormName("");
         setFormEmail("");
         setFormMessage("");
-        setBookDate(null);
-        setBookTime(null);
       }, 400);
     }, 1800);
   }
-
-  const slot = formatSlot(bookDate, bookTime);
 
   return (
     <>
@@ -334,7 +322,11 @@ export default function Page() {
           <div className="brand-logos-track">
             {[...TALENT_LOGOS, ...TALENT_LOGOS].map((logo, i) => (
               <div key={i} className="brand-logo-item">
-                <img src={logo.src} alt={logo.name} />
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
+                />
               </div>
             ))}
           </div>
@@ -514,10 +506,10 @@ export default function Page() {
                     <span className="c-badge">TopView Talent</span>
                     <h3 className="c-name">ENZO</h3>
                     <p className="c-tagline">The next breakout creator</p>
-                    <a href="https://www.instagram.com/rynenzo?igsh=MTQ5eGZyYnAwa2cyaw==" target="_blank" rel="noopener noreferrer" className="c-ig-link" onClick={e => e.stopPropagation()}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-                      @rynenzo
-                    </a>
+                    <span className="c-stat">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                      45M+ impressions generated
+                    </span>
                   </div>
                 </div>
               </div>
@@ -540,10 +532,10 @@ export default function Page() {
                     <span className="c-badge">TopView Talent</span>
                     <h3 className="c-name">sebtakespics</h3>
                     <p className="c-tagline">Genre redefining artist</p>
-                    <a href="https://www.instagram.com/sebtakespix?igsh=aXBkcXhocXFteWR0" target="_blank" rel="noopener noreferrer" className="c-ig-link" onClick={e => e.stopPropagation()}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-                      @sebtakespix
-                    </a>
+                    <span className="c-stat">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                      60M+ streams generated
+                    </span>
                   </div>
                 </div>
               </div>
@@ -566,10 +558,10 @@ export default function Page() {
                     <span className="c-badge">TopView Talent</span>
                     <h3 className="c-name">Justin Richburg</h3>
                     <p className="c-tagline">Long-form storytelling at scale</p>
-                    <a href="https://www.instagram.com/justin_richburg?igsh=MTByNW5xa3QwNTdheA==" target="_blank" rel="noopener noreferrer" className="c-ig-link" onClick={e => e.stopPropagation()}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-                      @justin_richburg
-                    </a>
+                    <span className="c-stat">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                      100M+ impressions generated
+                    </span>
                   </div>
                 </div>
               </div>
@@ -592,10 +584,10 @@ export default function Page() {
                     <span className="c-badge">TopView Talent</span>
                     <h3 className="c-name">Swoosh God</h3>
                     <p className="c-tagline">A voice that moves audiences</p>
-                    <a href="https://www.instagram.com/swooshgod?igsh=MTB3NXQxaDkzZWdqZA==" target="_blank" rel="noopener noreferrer" className="c-ig-link" onClick={e => e.stopPropagation()}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-                      @swooshgod
-                    </a>
+                    <span className="c-stat">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                      80M+ views generated
+                    </span>
                   </div>
                 </div>
               </div>
@@ -618,10 +610,10 @@ export default function Page() {
                     <span className="c-badge">TopView Talent</span>
                     <h3 className="c-name">Che Igbo</h3>
                     <p className="c-tagline">The face of the NY Knicks</p>
-                    <a href="https://www.instagram.com/cheigbo?igsh=MWl5NnNtd2xvdGtxdQ==" target="_blank" rel="noopener noreferrer" className="c-ig-link" onClick={e => e.stopPropagation()}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
-                      @cheigbo
-                    </a>
+                    <span className="c-stat">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                      120M+ impressions generated
+                    </span>
                   </div>
                 </div>
               </div>
@@ -849,7 +841,7 @@ export default function Page() {
             <div>
               <p className="contact-agency-tag">TopView Agency</p>
               <h2 className="contact-heading">Let&apos;s<br />Talk.</h2>
-              <p className="contact-desc">Pick a time that works, tell us what you&apos;re building, and we&apos;ll take it from there — strategy to execution.</p>
+              <p className="contact-desc">Book a call at a time that works for you — or drop us a message and we&apos;ll take it from there.</p>
             </div>
             <div className="contact-meta">
               <a href="mailto:hello@topview.agency" className="contact-email">hello@topview.agency</a>
@@ -874,26 +866,21 @@ export default function Page() {
                   </svg>
                 </div>
                 <p className="contact-sent-title">Sent.</p>
-                <p className="contact-sent-sub">
-                  {slot ? `We'll confirm your call for ${slot}.` : "We'll be in touch shortly."}
-                </p>
+                <p className="contact-sent-sub">We&apos;ll be in touch shortly.</p>
               </div>
             )}
 
-            {/* Form */}
+            {/* Book a call + message form */}
             {!formSent && (
-              <form className="contact-form" onSubmit={handleSubmit}>
+              <>
                 <div className="contact-field">
-                  <label className="contact-label">Pick a time</label>
-                  <BookingCalendar
-                    selectedDate={bookDate}
-                    selectedTime={bookTime}
-                    onSelectDate={setBookDate}
-                    onSelectTime={setBookTime}
-                  />
-                  {slot && <p className="contact-slot-summary">Preferred: <span>{slot}</span></p>}
+                  <label className="contact-label">Book a call</label>
+                  <CalendlyEmbed />
                 </div>
 
+                <div className="contact-or">Prefer to send a message?</div>
+
+                <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="contact-row">
                   <div className="contact-field">
                     <label className="contact-label">Name</label>
@@ -955,7 +942,8 @@ export default function Page() {
                     </svg>
                   </button>
                 </div>
-              </form>
+                </form>
+              </>
             )}
           </div>
         </div>
