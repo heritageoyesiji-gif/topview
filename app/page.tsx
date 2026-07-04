@@ -275,6 +275,19 @@ export default function Page() {
         <div className="hero-overlay-top" />
         <div className="hero-overlay-bottom" />
         <div className="hero-content">
+          <div className="btn-group hero-book-call" onClick={openModal}>
+            <button className="icon-btn glass">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/>
+              </svg>
+            </button>
+            <button className="cta-btn glass">
+              Book a Call
+              <svg className="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
           <p className="tagline">The Authority on the Next Digital Generation</p>
         </div>
       </section>
