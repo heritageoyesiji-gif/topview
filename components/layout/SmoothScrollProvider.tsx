@@ -16,6 +16,8 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     });
 
     lenisRef.current = lenis;
+    // Expose for modal scroll-locking (see lib/scrollLock.ts)
+    window.__lenis = lenis;
 
     let raf: number;
     function tick(time: number) {
@@ -27,6 +29,7 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
     return () => {
       cancelAnimationFrame(raf);
       lenis.destroy();
+      window.__lenis = undefined;
     };
   }, []);
 

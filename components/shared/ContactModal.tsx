@@ -1,10 +1,18 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import BookingCalendar from "./BookingCalendar";
+import { lockScroll, unlockScroll } from "@/lib/scrollLock";
 
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+function formatSlot(date: Date | null, time: string | null) {
+  if (!date) return null;
+  const d = date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  return time ? `${d} · ${time}` : d;
 }
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
@@ -13,12 +21,21 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [formName, setFormName]         = useState("");
   const [formEmail, setFormEmail]       = useState("");
   const [formMessage, setFormMessage]   = useState("");
+  const [bookDate, setBookDate]         = useState<Date | null>(null);
+  const [bookTime, setBookTime]         = useState<string | null>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [onClose]);
+
+  // Lock page scroll (native + Lenis) while open
+  useEffect(() => {
+    if (isOpen) lockScroll();
+    else unlockScroll();
+    return () => unlockScroll();
+  }, [isOpen]);
 
   // Reset form when modal closes
   useEffect(() => {
@@ -29,6 +46,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         setFormName("");
         setFormEmail("");
         setFormMessage("");
+        setBookDate(null);
+        setBookTime(null);
       }, 400);
       return () => clearTimeout(t);
     }
@@ -42,17 +61,19 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     }, 1800);
   }
 
+  const slot = formatSlot(bookDate, bookTime);
+
   return (
     <div
       className={`contact-modal${isOpen ? " open" : ""}`}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="contact-panel">
+      <div className="contact-panel" data-lenis-prevent>
         <div className="contact-left">
           <div>
             <p className="contact-agency-tag">TopView Agency</p>
             <h2 className="contact-heading">Let&apos;s<br />Talk.</h2>
-            <p className="contact-desc">Tell us what you&apos;re building. We&apos;ll handle the rest — from strategy to execution.</p>
+            <p className="contact-desc">Pick a time that works, tell us what you&apos;re building, and we&apos;ll take it from there — strategy to execution.</p>
           </div>
           <div className="contact-meta">
             <a href="mailto:hello@topview.agency" className="contact-email">hello@topview.agency</a>
@@ -75,10 +96,23 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </svg>
               </div>
               <p className="contact-sent-title">Sent.</p>
-              <p className="contact-sent-sub">We&apos;ll be in touch shortly.</p>
+              <p className="contact-sent-sub">
+                {slot ? `We'll confirm your call for ${slot}.` : "We'll be in touch shortly."}
+              </p>
             </div>
           ) : (
             <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="contact-field">
+                <label className="contact-label">Pick a time</label>
+                <BookingCalendar
+                  selectedDate={bookDate}
+                  selectedTime={bookTime}
+                  onSelectDate={setBookDate}
+                  onSelectTime={setBookTime}
+                />
+                {slot && <p className="contact-slot-summary">Preferred: <span>{slot}</span></p>}
+              </div>
+
               <div className="contact-row">
                 <div className="contact-field">
                   <label className="contact-label">Name</label>

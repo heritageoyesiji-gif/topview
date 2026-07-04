@@ -4,6 +4,14 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { transitionTo } from "@/lib/pageTransition";
 import { BRAND_LOGOS as TALENT_LOGOS } from "@/lib/logos";
+import BookingCalendar from "@/components/shared/BookingCalendar";
+import { lockScroll, unlockScroll } from "@/lib/scrollLock";
+
+function formatSlot(date: Date | null, time: string | null) {
+  if (!date) return null;
+  const d = date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  return time ? `${d} · ${time}` : d;
+}
 
 /* ─────────────────────────────────────────
    Carousel hook — shared by both carousels
@@ -111,6 +119,8 @@ export default function Page() {
   const [formName, setFormName]         = useState("");
   const [formEmail, setFormEmail]       = useState("");
   const [formMessage, setFormMessage]   = useState("");
+  const [bookDate, setBookDate]         = useState<Date | null>(null);
+  const [bookTime, setBookTime]         = useState<string | null>(null);
 
   // Refs
   const stmtInnerRef     = useRef<HTMLDivElement>(null);
@@ -201,12 +211,12 @@ export default function Page() {
   // ── Modal helpers
   const openModal = useCallback(() => {
     setModalOpen(true);
-    document.body.style.overflow = "hidden";
+    lockScroll();
   }, []);
 
   const closeModal = useCallback(() => {
     setModalOpen(false);
-    document.body.style.overflow = "";
+    unlockScroll();
   }, []);
 
   function handleSubmit(e: React.FormEvent) {
@@ -220,9 +230,13 @@ export default function Page() {
         setFormName("");
         setFormEmail("");
         setFormMessage("");
+        setBookDate(null);
+        setBookTime(null);
       }, 400);
     }, 1800);
   }
+
+  const slot = formatSlot(bookDate, bookTime);
 
   return (
     <>
@@ -829,13 +843,13 @@ export default function Page() {
         className={`contact-modal${modalOpen ? " open" : ""}`}
         onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
       >
-        <div className="contact-panel">
+        <div className="contact-panel" data-lenis-prevent>
           {/* Left: brand */}
           <div className="contact-left">
             <div>
               <p className="contact-agency-tag">TopView Agency</p>
               <h2 className="contact-heading">Let&apos;s<br />Talk.</h2>
-              <p className="contact-desc">Tell us what you&apos;re building. We&apos;ll handle the rest — from strategy to execution.</p>
+              <p className="contact-desc">Pick a time that works, tell us what you&apos;re building, and we&apos;ll take it from there — strategy to execution.</p>
             </div>
             <div className="contact-meta">
               <a href="mailto:hello@topview.agency" className="contact-email">hello@topview.agency</a>
@@ -860,13 +874,26 @@ export default function Page() {
                   </svg>
                 </div>
                 <p className="contact-sent-title">Sent.</p>
-                <p className="contact-sent-sub">We&apos;ll be in touch shortly.</p>
+                <p className="contact-sent-sub">
+                  {slot ? `We'll confirm your call for ${slot}.` : "We'll be in touch shortly."}
+                </p>
               </div>
             )}
 
             {/* Form */}
             {!formSent && (
               <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="contact-field">
+                  <label className="contact-label">Pick a time</label>
+                  <BookingCalendar
+                    selectedDate={bookDate}
+                    selectedTime={bookTime}
+                    onSelectDate={setBookDate}
+                    onSelectTime={setBookTime}
+                  />
+                  {slot && <p className="contact-slot-summary">Preferred: <span>{slot}</span></p>}
+                </div>
+
                 <div className="contact-row">
                   <div className="contact-field">
                     <label className="contact-label">Name</label>
