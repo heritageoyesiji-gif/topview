@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
-import CustomCursor from "@/components/layout/CustomCursor";
+import PageTransitionOverlay from "@/components/layout/PageTransitionOverlay";
+import ScrollRevealInit from "@/components/layout/ScrollRevealInit";
+import MoonLoader from "@/components/layout/MoonLoader";
+import Prefetcher from "@/components/layout/Prefetcher";
 
 const geist = Geist({
   variable: "--font-sans",
@@ -26,12 +29,25 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${barlowCondensed.variable} overflow-x-hidden`}>
+    <html lang="en" className={`${geist.variable} ${barlowCondensed.variable}`}>
       <body className="bg-black text-white antialiased overflow-x-hidden">
         <SmoothScrollProvider>
-          <CustomCursor />
           {children}
         </SmoothScrollProvider>
+        <Prefetcher />
+        <MoonLoader />
+        <PageTransitionOverlay />
+        <ScrollRevealInit />
+        <div
+          id="pg-overlay"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            transform: "translateX(100%)",
+            pointerEvents: "none",
+          }}
+        />
       </body>
     </html>
   );

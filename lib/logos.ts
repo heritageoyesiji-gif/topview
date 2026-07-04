@@ -1,0 +1,18 @@
+export const BRAND_LOGOS = [
+  { src: "/logos/broadus-sm.png",          name: "Broadus Foods"       },
+  { src: "/logos/bud-light.png",           name: "Bud Light"           },
+  { src: "/logos/champs-sports.png",       name: "Champs Sports"       },
+  { src: "/logos/dialing-innovations.png", name: "Dialing Innovations" },
+  { src: "/logos/finishline.png",          name: "Finish Line"         },
+  { src: "/logos/flexx.png",               name: "Flexx Nutrition"     },
+  { src: "/logos/footlocker.png",          name: "Foot Locker"         },
+  { src: "/logos/knicks.png",              name: "NY Knicks"           },
+  { src: "/logos/lids.png",                name: "Lids"                },
+  { src: "/logos/mcdonalds.png",           name: "McDonald's"          },
+  { src: "/logos/nike.png",                name: "Nike"                },
+  { src: "/logos/prime47.png",             name: "Prime 47"            },
+  { src: "/logos/puma.png",                name: "Puma"                },
+  { src: "/logos/skin-science.png",        name: "Skin Science"        },
+  { src: "/logos/snoop-cereal.png",        name: "Snoop Cereal"        },
+  { src: "/logos/topview-white-sm.png",    name: "TopView"             },
+];

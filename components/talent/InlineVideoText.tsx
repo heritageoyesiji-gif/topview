@@ -46,6 +46,7 @@ function InlineVideo({ src, alt }: VideoClip) {
       <video
         ref={ref}
         src={src}
+        poster={src.replace("/videos/", "/images/posters/").replace(".mp4", ".jpg")}
         loop
         muted
         playsInline
@@ -114,13 +115,35 @@ export default function InlineVideoText({
         <span>Online</span>
       </h2>
 
-      <div ref={btnRef}>
+      {/* Grouped btn-pair — hovering either turns both white, matching header CTA */}
+      <div
+        ref={btnRef}
+        className="group flex items-center gap-2.5 cursor-none"
+        onClick={onOpenContact}
+      >
         <button
-          onClick={onOpenContact}
-          className="liquid-glass inline-flex items-center h-14 px-10 rounded-full text-[13px] font-bold uppercase tracking-[0.15em] transition-all duration-300
-            border border-white/35 text-white hover:bg-white hover:text-black active:scale-95"
+          aria-label="Contact"
+          className="liquid-glass w-11 h-11 rounded-full flex items-center justify-center shrink-0
+            text-white/55 group-hover:bg-white group-hover:text-[#111] group-hover:border-transparent
+            transition-all duration-300"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"
+            className="transition-transform duration-300 group-hover:rotate-20">
+            <path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/>
+          </svg>
+        </button>
+
+        <button
+          className="liquid-glass inline-flex items-center gap-3 h-11 px-8 rounded-full shrink-0
+            text-white text-[12px] font-semibold uppercase tracking-wider
+            group-hover:bg-white group-hover:text-[#111] group-hover:border-transparent
+            active:scale-95 transition-all duration-300 whitespace-nowrap"
         >
           Get in Touch
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"
+            className="transition-transform duration-300 group-hover:translate-x-1">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
         </button>
       </div>
     </section>

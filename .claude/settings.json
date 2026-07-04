@@ -3,7 +3,16 @@
     "allow": [
       "mcp__claude_ai_Vercel__deploy_to_vercel",
       "Bash(git init *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git checkout *)",
+      "Bash(dir \"C:\\\\Users\\\\Admin\\\\Desktop\\\\Topview\\\\app\")",
+      "Bash(dir \"C:\\\\Users\\\\Admin\\\\Desktop\\\\Topview\\\\public\\\\videos\")",
+      "PowerShell($proc = Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object -First 1; if \\($proc\\) { \"Dev server running on port 3000 \\(PID: $\\($proc.OwningProcess\\)\\)\" } else { \"Port 3000 is free — server not running\" })",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000/marketing)",
+      "Bash(grep -v \"max\\\\|min\\\\|clientX\\\\|screenX\\\\|pageX\\\\|offsetX\\\\|layerX\\\\|movementX\\\\|startX\\\\|endX\\\\|prevX\\\\|//\\\\|matrix\\\\|eflect\\\\|ouch\\\\|wheel\\\\|pixel\\\\|index\\\\|hex\\\\|suffix\\\\|ndex\\\\|width\\\\|prefix\\\\|next\\\\|xPer\\\\|xRot\\\\|oxX\")",
+      "Bash(grep -v \"//\\\\|toString\\\\|parse\\\\|regex\\\\|version\")",
+      "Bash(grep -v \"//\\\\|clientX\\\\|screenX\\\\|pageX\\\\|offsetX\\\\|movementX\\\\|startX\\\\|prevX\\\\|endX\")"
     ]
   }
 }

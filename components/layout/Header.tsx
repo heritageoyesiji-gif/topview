@@ -6,7 +6,7 @@ import { MousePointer2, ArrowRight, ChevronDown } from "lucide-react";
 
 const marketingServices = [
   { title: "AI Automation",    num: "01" },
-  { title: "Website Design",   num: "02" },
+  { title: "Business Branding", num: "02" },
   { title: "SEO Optimization", num: "03" },
   { title: "DevOps",           num: "04" },
 ];
@@ -63,7 +63,7 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
         h-14 md:h-20 px-5 md:px-12
         bg-[#0d0d0d]/80 backdrop-blur-md border-b border-white/[0.07]"
     >
-      {/* Left — mode pill + services dropdown */}
+      {/* Left: mode pill + services dropdown */}
       <div className="flex items-center gap-5">
         <div
           className="liquid-glass flex items-center gap-1.5 p-1 rounded-full shrink-0"
@@ -133,34 +133,46 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
         )}
       </div>
 
-      {/* Center — logo, absolutely centered so left/right widths don't affect it */}
+      {/* Center: logo — absolute so it never squeezes the left pill */}
       <a
         href="/"
-        className="absolute left-1/2 -translate-x-1/2 font-bold text-white text-[15px] tracking-[0.22em] uppercase select-none pointer-events-auto"
+        className="absolute left-1/2 -translate-x-1/2 select-none"
       >
-        TopView
+        <img
+          src="/logos/topview-white.png"
+          alt="TopView"
+          className="h-8 md:h-10 w-auto"
+        />
       </a>
 
-      {/* Right — icon button + CTA */}
-      <div className="ml-auto flex items-center gap-2.5">
+      {/* Right: icon + CTA — grouped so hovering either turns both white */}
+      <div
+        className="group flex items-center gap-2.5 ml-auto cursor-none"
+        onClick={onOpenContact}
+      >
         <button
           aria-label="Contact"
-          onClick={onOpenContact}
           className="liquid-glass w-11 h-11 rounded-full flex items-center justify-center shrink-0
-            text-white/55 hover:text-white transition-colors duration-300"
-          style={{ background: "rgba(255,255,255,0.09)" }}
+            text-white/55 group-hover:bg-white group-hover:text-[#111] group-hover:border-transparent
+            transition-all duration-300"
         >
-          <MousePointer2 size={14} strokeWidth={1.8} />
+          <MousePointer2
+            size={14} strokeWidth={1.8}
+            className="transition-transform duration-300 group-hover:rotate-[20deg]"
+          />
         </button>
 
         <button
-          onClick={onOpenContact}
           className="liquid-glass hidden md:inline-flex items-center gap-3 h-11 px-8 rounded-full shrink-0
             text-white text-[12px] font-semibold uppercase tracking-wider
-            hover:brightness-125 active:scale-95 transition-all duration-300 whitespace-nowrap"
+            group-hover:bg-white group-hover:text-[#111] group-hover:border-transparent
+            active:scale-95 transition-all duration-300 whitespace-nowrap"
         >
           Get in Touch
-          <ArrowRight size={14} strokeWidth={1.8} />
+          <ArrowRight
+            size={14} strokeWidth={1.8}
+            className="transition-transform duration-300 group-hover:translate-x-1"
+          />
         </button>
       </div>
     </header>

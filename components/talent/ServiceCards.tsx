@@ -13,18 +13,21 @@ const cards = [
     title: "Talent Management",
     description: "Full-service management for the world's leading digital creators — from brand strategy to deal negotiation.",
     video: "/videos/talent-1.mp4",
+    badgeId: "sc1",
   },
   {
     Icon: Mic,
     title: "Brand Partnerships",
     description: "Connecting creators with brands that align with their audience. Authentic campaigns that convert.",
     video: "/videos/talentroster-4.mp4",
+    badgeId: "sc2",
   },
   {
     Icon: Film,
     title: "Media Production",
     description: "In-house production for podcasts, video content, and digital campaigns built for scale.",
     video: "/videos/talent-3.mp4",
+    badgeId: "sc3",
   },
 ];
 
@@ -45,6 +48,23 @@ function LazyVideo({ src, className }: { src: string; className: string }) {
   }, []);
 
   return <video ref={ref} src={src} loop muted playsInline preload="none" className={className} />;
+}
+
+function ExploreBadge({ id }: { id: string }) {
+  const circleId = `sc-path-${id}`;
+  return (
+    <div className="explore-badge">
+      <svg className="explore-ring" viewBox="0 0 130 130">
+        <defs>
+          <path id={circleId} d="M65,65 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0" />
+        </defs>
+        <text fontSize="12.5" fill="white" fontFamily="Helvetica Neue,Arial,sans-serif" fontWeight="600" letterSpacing="3">
+          <textPath href={`#${circleId}`}>EXPLORE / EXPLORE / EXPLORE /</textPath>
+        </text>
+      </svg>
+      <div className="explore-arrow">↗</div>
+    </div>
+  );
 }
 
 export default function ServiceCards() {
@@ -73,12 +93,13 @@ export default function ServiceCards() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-        {cards.map(({ Icon, title, description, video }, i) => (
+        {cards.map(({ Icon, title, description, video, badgeId }, i) => (
           <div
             key={title}
             ref={el => { if (el) cardsRef.current[i] = el; }}
-            className="group relative rounded-2xl overflow-hidden flex flex-col justify-end min-h-80 md:min-h-96"
+            className="group relative rounded-2xl overflow-hidden flex flex-col justify-end min-h-80 md:min-h-96 cursor-none"
           >
+            {/* Video background */}
             <div className="absolute inset-0 bg-[#111]">
               <LazyVideo
                 src={video}
@@ -87,6 +108,7 @@ export default function ServiceCards() {
               <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
             </div>
 
+            {/* Shine border */}
             <div
               className="pointer-events-none absolute inset-0 rounded-2xl"
               style={{
@@ -101,6 +123,10 @@ export default function ServiceCards() {
               }}
             />
 
+            {/* Explore badge — appears on hover (via .group:hover .explore-badge in globals.css) */}
+            <ExploreBadge id={badgeId} />
+
+            {/* Card content — fades on hover to reveal badge */}
             <div className="relative z-10 p-4 md:p-5 transition-opacity duration-500 group-hover:opacity-0">
               <div className="liquid-glass rounded-xl p-5 md:p-6 flex flex-col gap-4">
                 <div className="liquid-glass w-10 h-10 rounded-full flex items-center justify-center">

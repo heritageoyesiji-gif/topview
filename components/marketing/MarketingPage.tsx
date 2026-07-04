@@ -15,10 +15,10 @@ const services = [
     tags: ["GPT Integrations", "Workflow Automation", "Content Scaling"],
   },
   {
-    title: "Website Design",
+    title: "Business Branding",
     num: "02",
-    desc: "Conversion-first websites and landing pages built to perform at every scroll — from brand to checkout.",
-    tags: ["UI/UX Design", "Landing Pages", "E-Commerce"],
+    desc: "Websites, product design, and packaging built to perform at every scroll — from brand to checkout.",
+    tags: ["UI/UX Design", "Product Design", "Packaging"],
   },
   {
     title: "SEO Optimization",
@@ -56,21 +56,21 @@ const projects = [
   },
   {
     client: "Civil Law Group",
-    category: "Website Design",
+    category: "Business Branding",
     tag: "Web + App",
     year: "2024",
     image: "/images/work/law-firm.jpg",
   },
   {
     client: "Moroccan Tea Co.",
-    category: "Website Design",
+    category: "Business Branding",
     tag: "Packaging + Brand",
     year: "2025",
     image: "/images/work/moroccan-tea.jpg",
   },
   {
     client: "Nomad Tax",
-    category: "Website Design",
+    category: "Business Branding",
     tag: "Product Design",
     year: "2025",
     image: "/images/work/nomad-tax.jpg",

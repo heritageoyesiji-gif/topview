@@ -66,16 +66,16 @@ lib/
 
 Place these in `public/videos/`. Sections fall back to dark backgrounds until files are added.
 
-| File                 | Used in                                           |
-| -------------------- | ------------------------------------------------- |
-| `load.mp4`           | LoadingScreen intro animation                     |
-| `hero.mp4`           | HeroSection background · FooterCTA blurred bg     |
-| `talentroster-1.mp4` | InlineVideoText clip 1 · TalentRoster cards 1 & 4 |
-| `talentroster-2.mp4` | InlineVideoText clip 2 · TalentRoster card 2      |
-| `talentroster-3.mp4` | InlineVideoText clip 3 · TalentRoster card 3      |
-| `card-talent.mp4`    | ServiceCards — Talent Management                  |
-| `card-brands.mp4`    | ServiceCards — Brand Partnerships                 |
-| `card-media.mp4`     | ServiceCards — Media Production                   |
+| File              | Used in                                           |
+| ----------------- | ------------------------------------------------- |
+| `load.mp4`        | LoadingScreen intro animation                     |
+| `hero.mp4`        | HeroSection background · FooterCTA blurred bg     |
+| `talent-1.mp4`    | InlineVideoText clip 1 · TalentRoster cards 1 & 4 |
+| `talent-2.mp4`    | InlineVideoText clip 2 · TalentRoster card 2      |
+| `talent-3.mp4`    | InlineVideoText clip 3 · TalentRoster card 3      |
+| `card-talent.mp4` | ServiceCards — Talent Management                  |
+| `card-brands.mp4` | ServiceCards — Brand Partnerships                 |
+| `card-media.mp4`  | ServiceCards — Media Production                   |
 
 ---
 
@@ -119,3 +119,21 @@ Button system (consistent across all pages):
 - [ ] Contact form dialog (Radix UI Dialog already installed)
 - [ ] Talent roster data from Payload CMS
 - [ ] Individual talent profile pages at `/talent/[slug]`
+
+---
+
+## Marketing Page Build Log (`/marketing`)
+
+Reference: Land Clients website — adapted with **white bg (#fff) / black text (#111)**, no pink/magenta.  
+All marketing CSS uses the `mkt-` prefix and lives at the bottom of `globals.css`.
+
+| # | Section | Description | Status |
+|---|---------|-------------|--------|
+| 1 | Hero | Split layout — display headline, availability badge, 2 CTAs, decorative SVG ring | ✅ Done |
+| 2 | Pain Point | Dark bg, video overlay, centered rhetorical headline | ✅ Done |
+| 3 | Features Grid | Dark bg, 3×2 icon grid — 6 real TopView services | ✅ Done |
+| 4 | Services | White bg, 2×3 card grid — all 6 TopView services, hover arrow + underline sweep | ✅ Done |
+| 5 | Case Studies | Dark bg, 2×2 stat cards with video bg — 12M+ views, 4.2× ROAS, 68% ops reduction, 3.1× CVR | ✅ Done |
+| 6 | Portfolio / Latest Work | Dark bg, infinite marquee strip + 2-col/wide project grid with video hover | ✅ Done |
+| 7 | Process | White bg, numbered steps DISCOVER → STRATEGIZE → CREATE → LAUNCH → SCALE | 🔲 Planned |
+| 8 | Benefits | Light gray bg, 3-col benefit icon cards | 🔲 Planned |

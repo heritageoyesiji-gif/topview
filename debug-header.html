@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Header Debug</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      overflow-x: hidden;
+      background: #000;
+      color: #fff;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* ── Liquid glass ── */
+    .glass {
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      height: 72px;
+      padding: 0 48px;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .header-left { display: flex; align-items: center; }
+
+    .pill-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 9999px;
+    }
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      padding: 0 28px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .pill-btn.active   { background: #fff; color: #000; }
+    .pill-btn.inactive { background: transparent; color: rgba(255,255,255,0.5); }
+    .pill-btn.inactive:hover { color: rgba(255,255,255,0.85); }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── Button group ── */
+    .btn-group { display: flex; align-items: center; gap: 10px; }
+
+    .icon-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer;
+      color: rgba(255,255,255,0.55);
+      transition: background 0.25s, color 0.25s;
+      flex-shrink: 0;
+    }
+    .icon-btn svg { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      height: 44px; padding: 0 32px;
+      border-radius: 9999px;
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      white-space: nowrap; color: #fff; border: none; cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+    }
+    .cta-btn .arrow { transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+
+    .btn-group:hover .icon-btn,
+    .btn-group:hover .cta-btn { background: #fff !important; color: #111; }
+    .btn-group:hover .icon-btn svg { transform: rotate(20deg); }
+    .btn-group:hover .cta-btn .arrow { transform: translateX(4px); }
+
+    /* ── Page 1: Hero ── */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 72px;
+      background: #111;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-overlay-top {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+    }
+    .hero-overlay-bottom {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.1) 30%, transparent 60%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .tagline {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+    }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      height: 56px;
+      padding: 0 40px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .hero-btn:hover { background: #fff; color: #000; }
+
+    /* ── Page 2: Statement ── */
+    .statement {
+      height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: clip;
+    }
+    .statement-inner {
+      width: 100%;
+      padding: 0 48px;
+    }
+    .stmt-line {
+      display: block;
+      font-family: 'Barlow Condensed', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: #fff;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      /* font-size set by JS per line */
+    }
+    .stmt-line.left   { text-align: left; }
+    .stmt-line.center { text-align: center; }
+    .stmt-line.right  { text-align: right; }
+    .stmt-icon {
+      display: inline-block;
+      height: 0.72em; width: 0.72em;
+      vertical-align: middle;
+      margin: 0 0.12em;
+      position: relative; top: -0.05em;
+    }
+
+    /* ── Page 3: Inline Video Text ── */
+    .inline-text {
+      height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 72px 64px 48px;
+      gap: 40px;
+      overflow: hidden;
+    }
+    .inline-heading {
+      font-family: 'Barlow Condensed', 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(2.75rem, 7vw, 7.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+    .heading-line {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      line-height: 1;
+    }
+    .vid-wrap {
+      display: block;
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #222;
+      height: clamp(60px, 6vw, 80px);
+      width: clamp(50px, 6vw, 100px);
+    }
+    .vid-wrap video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    /* Simple pill button — matches Next.js InlineVideoText */
+    .simple-btn {
+      display: inline-flex;
+      align-items: center;
+      height: 56px;
+      padding: 0 40px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .simple-btn:hover { background: #fff; color: #000; }
+
+    /* ── Page 4: Service Cards (unchanged) ── */
+    .services {
+      height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      padding: 88px 48px 32px;
+      gap: 20px;
+      overflow: hidden;
+    }
+    .services-header { text-align: center; }
+    .services-title {
+      font-size: clamp(1.75rem, 3vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      margin-bottom: 14px;
+    }
+    .services-subtitle {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.5);
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+    .card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #111;
+      height: 100%;
+    }
+    .card-video { position: absolute; inset: 0; }
+    .card-video video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.55;
+      transition: opacity 0.7s;
+    }
+    .card:hover .card-video video { opacity: 0.75; }
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    }
+    .card-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      height: 100%; padding: 28px; flex: 1;
+    }
+    .card-icon-wrap {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    .card-text { display: flex; flex-direction: column; gap: 10px; }
+    .card-title {
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.18em; color: #fff;
+    }
+    .card-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ── Explore badge on card hover ── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .explore-badge {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      width: 130px; height: 130px;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .card:hover .explore-badge {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .explore-ring {
+      position: absolute;
+      inset: 0;
+      animation: spin 7s linear infinite;
+    }
+    .explore-arrow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px; height: 50px;
+      background: rgba(60,60,60,0.85);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: #fff;
+      backdrop-filter: blur(8px);
+    }
+
+    /* ── Shared Carousel (pages 5 & 6) ── */
+    @keyframes explore-rotate { to { transform: rotate(360deg); } }
+
+    .carousel-section {
+      height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      padding: 88px 0 32px; /* 88 = 72px nav + 16px breathe */
+      gap: 24px;
+      overflow: hidden;
+    }
+    .carousel-header {
+      padding: 0 48px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .carousel-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+    .carousel-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 6vw, 6rem);
+      text-transform: uppercase;
+      line-height: 0.92;
+      color: #fff;
+    }
+    .carousel-arrows { display: flex; gap: 10px; }
+    .carousel-arrow {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+      font-size: 18px;
+      line-height: 1;
+    }
+    .carousel-arrow:hover:not(:disabled) { border-color: rgba(255,255,255,0.6); color: #fff; }
+    .carousel-arrow:disabled { opacity: 0.2; cursor: default; }
+
+    /* Track — grows to fill remaining height after header + dots */
+    .carousel-track-wrap {
+      width: 100%;
+      flex: 1;
+      min-height: 0; /* allows flex child to shrink below content size */
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 12px;
+      height: 100%;
+      will-change: transform;
+    }
+
+    /* Cards — full height of track */
+    .c-card {
+      position: relative;
+      flex-shrink: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #1a1a1a;
+      height: 100%;
+      cursor: pointer;
+      transition: width 0.75s cubic-bezier(0.87,0,0.13,1);
+    }
+    .c-card video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: opacity 0.7s;
+    }
+    .c-card.active video  { opacity: 0.55; }
+    .c-card.inactive video { opacity: 0.2; }
+    .c-card:hover.active video { opacity: 0.75; }
+
+    /* Gradient overlay */
+    .c-overlay {
+      position: absolute; inset: 0;
+      transition: background 0.4s;
+    }
+    .c-card.active  .c-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%); }
+    .c-card.inactive .c-overlay { background: rgba(0,0,0,0.6); }
+
+    /* Active card content */
+    .c-content {
+      position: absolute; inset: 0;
+      display: flex; align-items: center;
+      padding-left: clamp(2rem,8%,5rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    .c-card.active .c-content { opacity: 1; pointer-events: auto; }
+
+    .c-inner { display: flex; align-items: center; gap: 48px; }
+
+    /* ExploreCircle */
+    .explore-circle {
+      position: relative;
+      width: 96px; height: 96px;
+      flex-shrink: 0;
+    }
+    .explore-circle svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      animation: explore-rotate 9s linear infinite;
+    }
+    .explore-center {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .explore-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+    }
+
+    /* Text block — fades on hover */
+    .c-text {
+      display: flex; flex-direction: column; gap: 12px;
+      transition: opacity 0.5s;
+    }
+    .c-card.active:hover .c-text { opacity: 0; }
+    .c-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.65);
+    }
+    .c-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: clamp(1.8rem, 4vw, 4rem);
+      line-height: 0.92;
+      color: #fff;
+    }
+    .c-tagline {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.5);
+      max-width: 240px;
+      line-height: 1.6;
+    }
+
+    /* Number badge */
+    .c-num {
+      position: absolute; bottom: 20px; right: 20px;
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-family: monospace;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* Dot nav */
+    .carousel-dots {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .c-dot {
+      height: 4px; border-radius: 9999px;
+      background: rgba(255,255,255,0.25);
+      border: none; cursor: pointer;
+      transition: width 0.5s, background 0.5s;
+      width: 8px;
+      padding: 0;
+    }
+    .c-dot.active { width: 32px; background: #fff; }
+    .c-dot:hover:not(.active) { background: rgba(255,255,255,0.5); }
+
+    /* ── Page 7: Footer CTA ── */
+    .footer-cta {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #000;
+    }
+    .footer-bg-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: blur(10px) brightness(0.28);
+      transform: scale(1.08);
+    }
+    .footer-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    /* Two-column panels — fill remaining space after bottom bar */
+    .footer-panels {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      padding-top: 88px;
+    }
+    .footer-vdivider {
+      width: 1px;
+      background: rgba(255,255,255,0.12);
+      flex-shrink: 0;
+      align-self: stretch;
+    }
+    /* Content wrap — target for iris clip-path reveal */
+    .footer-content-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+    }
+    .footer-panel {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px 48px 48px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .footer-panel-right {
+      align-items: flex-end;
+      text-align: right;
+    }
+    /* Cursor icon wiggle on right-panel hover */
+    @keyframes cursor-nudge {
+      0%   { transform: translate(0,0) rotate(0deg); }
+      30%  { transform: translate(4px,-5px) rotate(-28deg); }
+      65%  { transform: translate(2px,-2px) rotate(-14deg); }
+      100% { transform: translate(0,0) rotate(0deg); }
+    }
+    .footer-panel:hover .footer-cursor-icon {
+      animation: cursor-nudge 0.65s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    /* Explore badge on footer panel hover */
+    .footer-panel:hover .explore-badge {
+      opacity: 1;
+      transform: translate(-50%,-50%) scale(1);
+    }
+    .footer-big-line {
+      display: block;
+      font-family: 'Barlow Condensed', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.5rem, 5.5vw, 7rem);
+      text-transform: uppercase;
+      line-height: 0.95;
+      color: #fff;
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+    }
+    .footer-line-icon {
+      display: inline-block;
+      height: 0.65em;
+      width: 0.65em;
+      vertical-align: middle;
+      position: relative;
+      top: -0.05em;
+      margin: 0 0.1em;
+    }
+    /* Bottom bar */
+    .footer-bar {
+      position: relative;
+      flex-shrink: 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-bar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+    }
+    .footer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .footer-nav a {
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      padding-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .footer-nav a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 1px;
+      background: #fff;
+      transition: width 0.3s ease;
+    }
+    .footer-nav a:hover { color: #fff; }
+    .footer-nav a:hover::after { width: 100%; }
+    .footer-tagline {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.8;
+    }
+    .footer-socials {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-socials a {
+      display: flex;
+      align-items: center;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-socials a:hover { color: #fff; }
+    .footer-copyright {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 48px 14px;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── Contact Modal ── */
+    .contact-modal {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(48px) saturate(180%);
+      -webkit-backdrop-filter: blur(48px) saturate(180%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+    }
+    .contact-modal.open { opacity: 1; pointer-events: auto; }
+    .contact-panel {
+      width: 100%; max-width: 880px;
+      max-height: 90vh; overflow-y: auto;
+      border-radius: 24px;
+      background: #0c0c0c;
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+    }
+    /* Left brand column */
+    .contact-left {
+      width: 40%; flex-shrink: 0;
+      padding: 48px;
+      background: rgba(255,255,255,0.02);
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .contact-agency-tag {
+      font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.35em;
+      color: rgba(255,255,255,0.3); margin-bottom: 28px;
+    }
+    .contact-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; text-transform: uppercase;
+      font-size: clamp(2.5rem, 4.5vw, 5rem);
+      line-height: 0.92; color: #fff; margin-bottom: 16px;
+    }
+    .contact-desc {
+      font-size: 13px; color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+    }
+    .contact-meta { display: flex; flex-direction: column; gap: 8px; margin-top: 40px; }
+    .contact-email {
+      font-size: 11px; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .contact-email:hover { color: #fff; }
+    .contact-locations { font-size: 11px; color: rgba(255,255,255,0.2); }
+    /* Right form column */
+    .contact-right {
+      flex: 1; min-width: 0;
+      padding: 48px; position: relative;
+    }
+    .contact-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.4); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; line-height: 1;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-close:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+    .contact-form { display: flex; flex-direction: column; gap: 28px; }
+    .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .contact-field { display: flex; flex-direction: column; gap: 10px; }
+    .contact-label {
+      font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.3);
+    }
+    .contact-input {
+      background: transparent; border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding: 10px 0; color: #fff; font-size: 13px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      outline: none; transition: border-color 0.3s; width: 100%;
+    }
+    .contact-input::placeholder { color: rgba(255,255,255,0.2); }
+    .contact-input:focus { border-color: rgba(255,255,255,0.5); }
+    .contact-textarea { resize: none; line-height: 1.6; }
+    .contact-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .contact-pill {
+      padding: 7px 16px; border-radius: 9999px;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.4); background: transparent;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .contact-pill:hover { color: #fff; border-color: rgba(255,255,255,0.35); }
+    .contact-pill.active { background: #fff; color: #000; border-color: #fff; }
+    .contact-submit {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 44px; padding: 0 28px; border-radius: 9999px;
+      background: #fff; color: #000;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .contact-submit:hover { background: rgba(255,255,255,0.88); }
+    .contact-submit:active { transform: scale(0.97); }
+    /* Success state */
+    .contact-success {
+      height: 100%; min-height: 300px;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; gap: 16px;
+    }
+    .contact-success-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-sent-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; text-transform: uppercase;
+      font-size: 3rem; color: #fff; line-height: 1;
+    }
+    .contact-sent-sub { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+    /* ════════════════════════════════════════
+       MOBILE  (≤ 767px)
+    ════════════════════════════════════════ */
+    @media (max-width: 767px) {
+
+      /* ── Header ── */
+      header {
+        height: 56px;
+        padding: 0 20px;
+      }
+      .pill-wrap { gap: 4px; padding: 3px; }
+      .pill-btn  { height: 30px; padding: 0 16px; font-size: 10px; }
+      .cta-btn   { display: none; }        /* hide text CTA — keep icon only */
+      .icon-btn  { width: 38px; height: 38px; }
+      .ruler     { top: 56px; }
+
+      /* ── Page 1: Hero ── */
+      .hero { padding-bottom: 48px; }
+      .tagline { font-size: 10px; letter-spacing: 0.2em; }
+      .hero-btn { height: 48px; padding: 0 28px; font-size: 12px; }
+
+      /* ── Page 2: Statement ── */
+      .statement-inner { padding: 0 20px; }
+
+      /* ── Page 3: Inline Video Text ── */
+      .inline-text {
+        padding: 80px 20px 40px;
+        gap: 28px;
+      }
+      .inline-heading {
+        font-size: clamp(2rem, 8.5vw, 3.5rem);
+      }
+      .heading-line { gap: 0.2em; line-height: 1.05; }
+      .vid-wrap {
+        height: clamp(40px, 8vw, 60px);
+        width:  clamp(36px, 8vw, 56px);
+        border-radius: 6px;
+      }
+
+      /* ── Page 4: Service Cards ── */
+      .services {
+        height: auto;
+        min-height: 100svh;
+        overflow-y: auto;
+        padding: 80px 16px 32px;
+        gap: 20px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .card { min-height: 220px; border-radius: 16px; }
+      .card-content { padding: 20px; }
+      .card-icon-wrap { flex: unset; margin-bottom: 8px; }
+
+      /* ── Pages 5 & 6: Carousels ── */
+      .carousel-section {
+        padding-top: 72px;
+        gap: 16px;
+      }
+      .carousel-header { padding: 0 20px; }
+      .carousel-title { font-size: clamp(2rem, 8vw, 3.5rem); }
+      .c-inner { gap: 24px; }
+      .explore-circle { width: 72px; height: 72px; }
+      .explore-btn { width: 32px; height: 32px; font-size: 14px; }
+      .c-name { font-size: clamp(1.6rem, 6vw, 2.8rem); }
+      .c-tagline { font-size: 10px; }
+
+      /* ── Page 7: Footer CTA ── */
+      .footer-panels {
+        flex-direction: column;
+        padding-top: 72px;
+      }
+      .footer-panel {
+        flex: none;
+        min-height: 38svh;
+        padding: 28px 24px 32px;
+        justify-content: flex-end;
+      }
+      .footer-panel-right {
+        align-items: flex-start;
+        text-align: left;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+      .footer-big-line { font-size: clamp(3rem, 12.5vw, 6rem); }
+      .footer-bar-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 24px 24px 16px;
+      }
+      .footer-tagline { display: none; }
+      .footer-socials { flex-direction: row; gap: 20px; }
+      .footer-copyright { padding: 12px 24px 16px; }
+
+      /* ── Contact Modal ── */
+      .contact-modal { padding: 16px; align-items: flex-end; }
+      .contact-panel {
+        flex-direction: column;
+        max-height: 92svh;
+        border-radius: 20px;
+      }
+      .contact-left {
+        width: 100%;
+        padding: 28px 24px 20px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      .contact-heading { font-size: clamp(2rem, 8vw, 3rem); margin-bottom: 8px; }
+      .contact-desc { font-size: 12px; }
+      .contact-meta { margin-top: 16px; flex-direction: row; gap: 16px; }
+      .contact-right { padding: 24px; }
+      .contact-row { grid-template-columns: 1fr; gap: 16px; }
+      .contact-close { top: 14px; right: 14px; }
+    }
+
+    /* ── Debug rulers ── */
+    .ruler {
+      position: fixed; top: 72px; bottom: 0;
+      width: 2px; background: rgba(255,0,100,0.5);
+      z-index: 100; pointer-events: none;
+    }
+    #ruler-l { left: 24px; }
+    #ruler-r { right: 24px; }
+  </style>
+</head>
+<body>
+
+  <div class="ruler" id="ruler-l"></div>
+  <div class="ruler" id="ruler-r"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <div class="pill-wrap glass">
+        <button class="pill-btn active">Talent</button>
+        <button class="pill-btn inactive">Marketing</button>
+      </div>
+    </div>
+
+    <a href="#" class="logo">TopView</a>
+
+    <div class="header-right">
+      <div class="btn-group">
+        <button class="icon-btn glass">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/>
+          </svg>
+        </button>
+        <button class="cta-btn glass">
+          Get in Touch
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page 1: Hero -->
+  <section class="hero">
+    <video class="hero-video" src="public/videos/hero.mp4" autoplay loop muted playsinline></video>
+    <div class="hero-overlay-top"></div>
+    <div class="hero-overlay-bottom"></div>
+    <div class="hero-content">
+      <p class="tagline">The Authority on the Next Digital Generation</p>
+      <button class="hero-btn glass">Get in Touch</button>
+    </div>
+  </section>
+
+  <!-- Page 2: Statement -->
+  <section class="statement">
+    <div class="statement-inner">
+      <div class="stmt-line left">The Voice
+        <svg class="stmt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </div>
+      <div class="stmt-line right">Behind Tomorrow's</div>
+      <div class="stmt-line center">Stars
+        <svg class="stmt-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 3: Inline Video Text -->
+  <section class="inline-text">
+    <h2 class="inline-heading">
+      <div class="heading-line">
+        <span>TopView</span>
+        <span class="vid-wrap"><video src="public/videos/talent-1.mp4" autoplay loop muted playsinline></video></span>
+        <span>Represents</span>
+      </div>
+      <div class="heading-line">
+        <span>The Voices</span>
+        <span class="vid-wrap"><video src="public/videos/talent-2.mp4" autoplay loop muted playsinline></video></span>
+        <span>Shaping</span>
+      </div>
+      <div class="heading-line">
+        <span>Culture</span>
+        <span class="vid-wrap"><video src="public/videos/talent-3.mp4" autoplay loop muted playsinline></video></span>
+        <span>Online</span>
+      </div>
+    </h2>
+
+    <div class="btn-group">
+      <button class="icon-btn glass">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/>
+        </svg>
+      </button>
+      <button class="cta-btn glass">
+        Get in Touch
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Page 4: Service Cards (unchanged) -->
+  <section class="services">
+    <div class="services-header">
+      <h2 class="services-title">What We Do</h2>
+      <p class="services-subtitle">We represent some of the most influential creators, artists and brands on the internet.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-video">
+          <video src="public/videos/talent-1.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="card-overlay"></div>
+        <!-- Explore badge — appears on hover -->
+        <div class="explore-badge">
+          <svg class="explore-ring" viewBox="0 0 130 130">
+            <defs>
+              <path id="cp" d="M65,65 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/>
+            </defs>
+            <text font-size="12.5" fill="white" font-family="Helvetica Neue,Arial,sans-serif" font-weight="600" letter-spacing="3">
+              <textPath href="#cp">EXPLORE / EXPLORE / EXPLORE /</textPath>
+            </text>
+          </svg>
+          <div class="explore-arrow">↗</div>
+        </div>
+        <div class="card-content">
+          <div class="card-icon-wrap">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-text">
+            <h3 class="card-title">Talent Management</h3>
+            <p class="card-desc">Full-service management for the world's leading digital creators — from brand strategy to deal negotiation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-video">
+          <video src="public/videos/talentroster-4.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="card-overlay"></div>
+        <!-- Explore badge — appears on hover -->
+        <div class="explore-badge">
+          <svg class="explore-ring" viewBox="0 0 130 130">
+            <defs>
+              <path id="cp" d="M65,65 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/>
+            </defs>
+            <text font-size="12.5" fill="white" font-family="Helvetica Neue,Arial,sans-serif" font-weight="600" letter-spacing="3">
+              <textPath href="#cp">EXPLORE / EXPLORE / EXPLORE /</textPath>
+            </text>
+          </svg>
+          <div class="explore-arrow">↗</div>
+        </div>
+        <div class="card-content">
+          <div class="card-icon-wrap">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-text">
+            <h3 class="card-title">Brand Partnerships</h3>
+            <p class="card-desc">Connecting creators with brands that align with their audience. Authentic campaigns that convert.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-video">
+          <video src="public/videos/talent-3.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="card-overlay"></div>
+        <!-- Explore badge — appears on hover -->
+        <div class="explore-badge">
+          <svg class="explore-ring" viewBox="0 0 130 130">
+            <defs>
+              <path id="cp" d="M65,65 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/>
+            </defs>
+            <text font-size="12.5" fill="white" font-family="Helvetica Neue,Arial,sans-serif" font-weight="600" letter-spacing="3">
+              <textPath href="#cp">EXPLORE / EXPLORE / EXPLORE /</textPath>
+            </text>
+          </svg>
+          <div class="explore-arrow">↗</div>
+        </div>
+        <div class="card-content">
+          <div class="card-icon-wrap">
+            <div class="card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/>
+                <line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/>
+                <line x1="17" y1="7" x2="22" y2="7"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-text">
+            <h3 class="card-title">Media Production</h3>
+            <p class="card-desc">In-house production for podcasts, video content, and digital campaigns built for scale.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 5: Talent Roster Carousel -->
+  <section class="carousel-section" id="roster">
+    <div class="carousel-header">
+      <div>
+        <p class="carousel-label">Our Roster</p>
+        <h2 class="carousel-title">The Talent</h2>
+      </div>
+      <div class="carousel-arrows">
+        <button class="carousel-arrow" id="roster-prev" disabled>&#8592;</button>
+        <button class="carousel-arrow" id="roster-next">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="roster-track">
+        <div class="c-card active" data-carousel="roster">
+          <video src="public/videos/talentroster-1.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="rp1" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#rp1">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">TopView Talent</span>
+                <h3 class="c-name">ENZO</h3>
+                <p class="c-tagline">The next breakout creator</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">01</span>
+        </div>
+
+        <div class="c-card inactive" data-carousel="roster">
+          <video src="public/videos/talentroster-2.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="rp2" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#rp2">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">TopView Talent</span>
+                <h3 class="c-name">sebtakespics</h3>
+                <p class="c-tagline">Genre redefining artist</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">02</span>
+        </div>
+
+        <div class="c-card inactive" data-carousel="roster">
+          <video src="public/videos/talentroster-3.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="rp3" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#rp3">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">TopView Talent</span>
+                <h3 class="c-name">Justin Richburg</h3>
+                <p class="c-tagline">Long-form storytelling at scale</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">03</span>
+        </div>
+
+        <div class="c-card inactive" data-carousel="roster">
+          <video src="public/videos/talentroster-4.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="rp4" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#rp4">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">TopView Talent</span>
+                <h3 class="c-name">Swoosh God</h3>
+                <p class="c-tagline">A voice that moves audiences</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">04</span>
+        </div>
+
+        <div class="c-card inactive" data-carousel="roster">
+          <video src="public/videos/talentroster-5.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="rp5" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#rp5">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">TopView Talent</span>
+                <h3 class="c-name">Che Igbo</h3>
+                <p class="c-tagline">The face of the NY Knicks</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">05</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-dots" id="roster-dots"></div>
+  </section>
+
+  <!-- Page 6: Brand Collaborations Carousel -->
+  <section class="carousel-section" id="collaborations">
+    <div class="carousel-header">
+      <div>
+        <p class="carousel-label">What We Do</p>
+        <h2 class="carousel-title">Brand<br>Collaborations</h2>
+      </div>
+      <div class="carousel-arrows">
+        <button class="carousel-arrow" id="collab-prev" disabled>&#8592;</button>
+        <button class="carousel-arrow" id="collab-next">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="collab-track">
+        <div class="c-card active" data-carousel="collab">
+          <video src="public/videos/hero.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="cp1" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#cp1">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">Campaign Strategy</span>
+                <h3 class="c-name">Campaigns</h3>
+                <p class="c-tagline">Built to generate cultural conversation</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">01</span>
+        </div>
+
+        <div class="c-card inactive" data-carousel="collab">
+          <video src="public/videos/talentroster-4.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="cp2" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#cp2">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">Talent Integration</span>
+                <h3 class="c-name">Activations</h3>
+                <p class="c-tagline">Authentic partnerships audiences trust</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">02</span>
+        </div>
+
+        <div class="c-card inactive" data-carousel="collab">
+          <video src="public/videos/talent-3.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="cp3" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#cp3">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">Content Production</span>
+                <h3 class="c-name">Media</h3>
+                <p class="c-tagline">Podcasts, series, campaigns at scale</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">03</span>
+        </div>
+
+        <div class="c-card inactive" data-carousel="collab">
+          <video src="public/videos/talent-1.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="c-overlay"></div>
+          <div class="c-content">
+            <div class="c-inner">
+              <div class="explore-circle">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs><path id="cp4" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+                  <text fill="rgba(255,255,255,0.65)" font-size="8" letter-spacing="2.8"><textPath href="#cp4">EXPLORE · EXPLORE · EXPLORE · EXPLORE ·</textPath></text>
+                </svg>
+                <div class="explore-center"><div class="explore-btn">↗</div></div>
+              </div>
+              <div class="c-text">
+                <span class="c-badge">Digital Growth</span>
+                <h3 class="c-name">Distribution</h3>
+                <p class="c-tagline">Creators in front of the right audiences</p>
+              </div>
+            </div>
+          </div>
+          <span class="c-num">04</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="carousel-dots" id="collab-dots"></div>
+  </section>
+
+  <!-- Page 7: Footer CTA -->
+  <section class="footer-cta" id="footer">
+    <video class="footer-bg-video" src="public/videos/footer.mp4" autoplay loop muted playsinline></video>
+
+    <!-- Iris-clipped wrapper — overlay + all content -->
+    <div class="footer-content-wrap">
+      <div class="footer-bg-overlay"></div>
+
+      <div class="footer-panels">
+        <!-- Left: Request Roster -->
+        <div class="footer-panel" id="footerLeftBtn">
+          <!-- Explore badge on hover -->
+          <div class="explore-badge">
+            <svg class="explore-ring" viewBox="0 0 130 130">
+              <defs><path id="fp1" d="M65,65 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs>
+              <text font-size="12.5" fill="white" font-family="Helvetica Neue,Arial,sans-serif" font-weight="600" letter-spacing="3">
+                <textPath href="#fp1">EXPLORE / EXPLORE / EXPLORE /</textPath>
+              </text>
+            </svg>
+            <div class="explore-arrow">↗</div>
+          </div>
+          <div>
+            <span class="footer-big-line">Request</span>
+            <span class="footer-big-line">Roster
+              <svg class="footer-line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: Get In Touch -->
+        <div class="footer-panel footer-panel-right" id="footerRightBtn">
+          <!-- Explore badge on hover -->
+          <div class="explore-badge">
+            <svg class="explore-ring" viewBox="0 0 130 130">
+              <defs><path id="fp2" d="M65,65 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs>
+              <text font-size="12.5" fill="white" font-family="Helvetica Neue,Arial,sans-serif" font-weight="600" letter-spacing="3">
+                <textPath href="#fp2">SAY HELLO / SAY HELLO / SAY HELLO /</textPath>
+              </text>
+            </svg>
+            <div class="explore-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <span class="footer-big-line">
+              <svg class="footer-line-icon footer-cursor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4l7.07 17 2.51-7.39L21 11.07z"/>
+              </svg>Get In
+            </span>
+            <span class="footer-big-line">Touch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer bar -->
+      <div class="footer-bar">
+      <div class="footer-bar-content">
+        <nav class="footer-nav">
+          <a href="#">Talent</a>
+          <a href="#">Marketing</a>
+          <a href="#">Contact</a>
+        </nav>
+        <p class="footer-tagline">The Next Digital<br>Generation</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter / X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.06a8.16 8.16 0 0 0 4.78 1.53V7.14a4.85 4.85 0 0 1-1.02-.45z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <span>© 2026 TopView</span>
+        <span>All Rights Reserved</span>
+      </div>
+    </div><!-- /.footer-bar -->
+    </div><!-- /.footer-content-wrap -->
+  </section>
+
+  <!-- Contact Modal -->
+  <div class="contact-modal" id="contactModal">
+    <div class="contact-panel">
+      <!-- Left: brand -->
+      <div class="contact-left">
+        <div>
+          <p class="contact-agency-tag">TopView Agency</p>
+          <h2 class="contact-heading">Let's<br>Talk.</h2>
+          <p class="contact-desc">Tell us what you're building. We'll handle the rest — from strategy to execution.</p>
+        </div>
+        <div class="contact-meta">
+          <a href="mailto:hello@topview.agency" class="contact-email">hello@topview.agency</a>
+          <span class="contact-locations">Lagos · London</span>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="contact-right">
+        <button class="contact-close" id="contactClose">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+
+        <!-- Success state -->
+        <div class="contact-success" id="contactSuccess">
+          <div class="contact-success-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4.5 4.5L16 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="contact-sent-title">Sent.</p>
+          <p class="contact-sent-sub">We'll be in touch shortly.</p>
+        </div>
+
+        <!-- Form -->
+        <form class="contact-form" id="contactForm" onsubmit="return submitContactForm(event)">
+          <div class="contact-row">
+            <div class="contact-field">
+              <label class="contact-label">Name</label>
+              <input class="contact-input" type="text" placeholder="Your name" required />
+            </div>
+            <div class="contact-field">
+              <label class="contact-label">Email</label>
+              <input class="contact-input" type="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+
+          <div class="contact-field">
+            <label class="contact-label">I'm reaching out about</label>
+            <div class="contact-pills">
+              <button type="button" class="contact-pill" onclick="selectPill(this)">Talent</button>
+              <button type="button" class="contact-pill" onclick="selectPill(this)">Campaigns</button>
+              <button type="button" class="contact-pill" onclick="selectPill(this)">Web / Software</button>
+              <button type="button" class="contact-pill" onclick="selectPill(this)">Other</button>
+            </div>
+          </div>
+
+          <div class="contact-field">
+            <label class="contact-label">Message</label>
+            <textarea class="contact-input contact-textarea" rows="4" placeholder="Tell us about your project, timeline, or anything else..." required></textarea>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; padding-top:4px;">
+            <button type="submit" class="contact-submit">
+              Send Message
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pill-btn').forEach(b => {
+          b.classList.remove('active'); b.classList.add('inactive');
+        });
+        btn.classList.remove('inactive'); btn.classList.add('active');
+      });
+    });
+
+    // Fit-to-width: each statement line scales independently to fill the container
+    function fitLines() {
+      const inner = document.querySelector('.statement-inner');
+      const style = getComputedStyle(inner);
+      const availableWidth = inner.getBoundingClientRect().width
+        - parseFloat(style.paddingLeft)
+        - parseFloat(style.paddingRight);
+
+      document.querySelectorAll('.stmt-line').forEach(line => {
+        line.style.fontSize = '100px';
+        const scale = availableWidth / line.scrollWidth;
+        line.style.fontSize = (100 * scale) + 'px';
+      });
+    }
+
+    fitLines();
+    new ResizeObserver(fitLines).observe(document.querySelector('.statement-inner'));
+
+    // ── Shared carousel engine ──
+    function makeCarousel({ trackId, prevId, nextId, dotsId }) {
+      const track   = document.getElementById(trackId);
+      const prevBtn = document.getElementById(prevId);
+      const nextBtn = document.getElementById(nextId);
+      const dotsWrap = document.getElementById(dotsId);
+      const cards = [...track.querySelectorAll('.c-card')];
+      const GAP = 12;
+      let active = 0;
+
+      // Build dot nav
+      cards.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'c-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => go(i));
+        dotsWrap.appendChild(d);
+      });
+
+      function layout(animate) {
+        const vw = track.parentElement.offsetWidth;
+        const peek = vw < 768 ? 28 : 100;
+        const AW = Math.max(vw - 2*(peek+GAP) - 40, Math.floor(vw * 0.7));
+        const x = -(active * (peek + GAP)) + (vw - AW) / 2;
+
+        cards.forEach((card, i) => {
+          const w = i === active ? AW : peek;
+          if (animate) {
+            card.style.transition = 'width 0.75s cubic-bezier(0.87,0,0.13,1)';
+          } else {
+            card.style.transition = 'none';
+          }
+          card.style.width = w + 'px';
+          card.classList.toggle('active', i === active);
+          card.classList.toggle('inactive', i !== active);
+        });
+
+        if (animate) {
+          track.style.transition = 'transform 0.75s cubic-bezier(0.87,0,0.13,1)';
+        } else {
+          track.style.transition = 'none';
+        }
+        track.style.transform = `translateX(${x}px)`;
+
+        // Dots
+        [...dotsWrap.querySelectorAll('.c-dot')].forEach((d, i) => {
+          d.classList.toggle('active', i === active);
+        });
+
+        // Videos — play active, pause others
+        cards.forEach((card, i) => {
+          const vid = card.querySelector('video');
+          if (!vid) return;
+          if (i === active) vid.play().catch(() => {});
+          else vid.pause();
+        });
+
+        prevBtn.disabled = active === 0;
+        nextBtn.disabled = active === cards.length - 1;
+      }
+
+      function go(i) {
+        active = Math.max(0, Math.min(cards.length - 1, i));
+        layout(true);
+      }
+
+      cards.forEach((card, i) => {
+        card.addEventListener('click', () => { if (i !== active) go(i); });
+      });
+      prevBtn.addEventListener('click', () => go(active - 1));
+      nextBtn.addEventListener('click', () => go(active + 1));
+
+      // Swipe
+      let pointerX = 0;
+      track.addEventListener('pointerdown', e => { pointerX = e.clientX; });
+      track.addEventListener('pointerup', e => {
+        const dx = e.clientX - pointerX;
+        if (Math.abs(dx) > 60) go(dx < 0 ? active + 1 : active - 1);
+      });
+
+      // Initial layout (no animation)
+      layout(false);
+      window.addEventListener('resize', () => layout(false));
+    }
+
+    makeCarousel({ trackId: 'roster-track', prevId: 'roster-prev', nextId: 'roster-next', dotsId: 'roster-dots' });
+    makeCarousel({ trackId: 'collab-track', prevId: 'collab-prev', nextId: 'collab-next', dotsId: 'collab-dots' });
+
+    // ── Footer iris reveal (triggers when section is mostly in view) ──
+    (function () {
+      const wrap = document.querySelector('.footer-content-wrap');
+      wrap.style.transition = 'clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1)';
+      wrap.style.clipPath = 'circle(0% at 50% 40%)';
+      const obs = new IntersectionObserver(([e]) => {
+        wrap.style.clipPath = e.isIntersecting
+          ? 'circle(150% at 50% 40%)'
+          : 'circle(0% at 50% 40%)';
+      }, { threshold: 0.35 });
+      obs.observe(document.getElementById('footer'));
+    })();
+
+    // ── Contact modal ──
+    const modal       = document.getElementById('contactModal');
+    const closeBtn     = document.getElementById('contactClose');
+    const contactForm  = document.getElementById('contactForm');
+    const contactSuccess = document.getElementById('contactSuccess');
+
+    function openModal() {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function selectPill(btn) {
+      btn.parentElement.querySelectorAll('.contact-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function submitContactForm(e) {
+      e.preventDefault();
+      contactForm.style.display = 'none';
+      contactSuccess.style.display = 'flex';
+      setTimeout(() => {
+        closeModal();
+        setTimeout(() => {
+          contactForm.reset();
+          contactForm.querySelectorAll('.contact-pill').forEach(p => p.classList.remove('active'));
+          contactForm.style.display = 'flex';
+          contactSuccess.style.display = 'none';
+        }, 400);
+      }, 1800);
+      return false;
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.getElementById('footerLeftBtn').addEventListener('click',  openModal);
+    document.getElementById('footerRightBtn').addEventListener('click', openModal);
+
+  </script>
+
+</body>
+</html>
