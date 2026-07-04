@@ -33,7 +33,7 @@ export default function SiteHeader({
       </div>
 
       <a href="/" className="logo">
-        <img src="/logos/topview-white.png" alt="TopView" style={{ height: "60px", width: "auto" }} />
+        <img src="/logos/topview-white.png" alt="TopView" style={{ height: "76px", width: "auto" }} />
       </a>
 
       <div className="header-right">

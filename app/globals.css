@@ -51,7 +51,10 @@ header {
 .logo {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
   font-weight: 700;
   font-size: 15px;
   letter-spacing: 0.22em;
@@ -159,10 +162,10 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 34px;
 }
 .tagline {
-  font-size: clamp(22px, 3vw, 42px);
+  font-size: clamp(15px, 2vw, 28px);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -1279,6 +1282,6 @@ header {
   to   { opacity: 1; transform: translateY(0); }
 }
 .hero-content .hero-book-call { animation: hero-up 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.25s both; }
-.hero-content .tagline { animation: hero-up 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s both; }
+.hero-content .tagline { animation: hero-up 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.45s both; }
 .hero-content .hero-btn { animation: hero-up 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.45s both; }
 

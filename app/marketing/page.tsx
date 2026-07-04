@@ -27,6 +27,7 @@ import IntakePopup from "@/components/marketing/IntakePopup";
 export default function MarketingPage() {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
+  const [expandedAcc, setExpandedAcc] = useState<number | null>(null);
 
   /* Set light theme on body for this page */
   useEffect(() => {
@@ -299,7 +300,7 @@ export default function MarketingPage() {
       {/* ══ SECTION 5: CASE STUDIES ══ */}
       <section className="mkt-results">
         <div className="mkt-results-header">
-          <p className="mkt-results-eyebrow">Results</p>
+          <p className="mkt-results-eyebrow">Impact</p>
           <h2 className="mkt-results-title" data-reveal>
             Numbers That<br />Speak For<br />Themselves.
           </h2>
@@ -360,6 +361,69 @@ export default function MarketingPage() {
             </div>
           ))}
         </div>
+
+        {/* Press / articles about the agency */}
+        <div className="mkt-press">
+          <div className="mkt-press-head">
+            <span className="mkt-press-eyebrow">In The Press</span>
+            <span className="mkt-press-rule" />
+          </div>
+
+          <div className="mkt-press-grid">
+            {[
+              {
+                pub: "New York Weekly",
+                img: "/images/work/nytopview.png",
+                quote: "The Journey to Success: Sam Boro on Building Talent & Marketing Agency TopView.",
+                date: "May 2022",
+                href: "https://nyweekly.com/business/the-journey-to-success-sam-boro-on-building-talent-and-marketing-agency-topview/",
+              },
+              {
+                pub: "USA Wire",
+                img: "/images/work/usawiretopview.png",
+                quote: "TopView, the fastest growing talent management company in the Midwest.",
+                date: "Aug 2022",
+                href: "https://usawire.com/topview-the-fastest-growing-talent-management-company-in-the-midwest/",
+              },
+              {
+                pub: "WISH-TV",
+                img: "/images/work/wishtvtopview.png",
+                quote: "TopView's rise in Midwest talent management.",
+                date: "2022",
+                href: "https://www.wishtv.com/news/local-news/topviews-rise-in-midwest-talent-management/",
+              },
+            ].map((a, i) => (
+              <a
+                key={a.pub}
+                href={a.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mkt-press-card"
+                data-reveal="scale"
+                data-d={String(i + 1)}
+              >
+                <div className="mkt-press-thumb">
+                  <img src={a.img} alt={`${a.pub} — ${a.quote}`} loading="lazy" />
+                </div>
+                <div className="mkt-press-body">
+                  <p className="mkt-press-quote">{a.quote}</p>
+                  <div className="mkt-press-foot">
+                    <div className="mkt-press-meta">
+                      <span className="mkt-press-pub">{a.pub}</span>
+                      <span className="mkt-press-date">{a.date}</span>
+                    </div>
+                    <span className="mkt-press-read">
+                      Read
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ══ SECTION 6: OUR WORK ══ */}
@@ -372,105 +436,103 @@ export default function MarketingPage() {
               Accolades<br />(Impact).
             </h2>
           </div>
-          <span className="mkt-work-count">07 Accolades</span>
+          <span className="mkt-work-count">06 Accolades</span>
         </div>
 
         {/* Accolade pills — expand on hover to reveal impact */}
         <div className="mkt-acc-grid">
           {[
             {
-              img: "/images/work/bud-light.jpg",
-              client: "Bud Light",
-              service: "Influencer Marketing",
-              blurb: "40M+ impressions across a national creator rollout.",
+              media: "/videos/druski.mp4",
+              type: "video",
+              client: "Druski",
+              service: "Comedian · Creator",
+              blurb: "The comedian rewriting internet culture one viral sketch at a time. TopView powers the branded content and creator campaigns that turn his reach into results.",
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  <polygon points="5 3 19 12 5 21 5 3"/>
                 </svg>
               ),
             },
             {
-              img: "/images/work/colostrum.jpg",
-              client: "Colostrum Co.",
-              service: "Lead Generation",
-              blurb: "3.2× qualified pipeline growth in 90 days.",
+              media: "/images/work/pushaT.jpg",
+              type: "image",
+              client: "Pusha T",
+              service: "Recording Artist",
+              blurb: "Rap purist, Clipse co-founder, the voice behind ‘King Push.’ TopView shapes the digital rollouts and brand moments built around his cultural weight.",
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
                 </svg>
               ),
             },
             {
-              img: "/images/work/fitness-girls.jpg",
-              client: "FitFounders",
-              service: "AI Influencer Marketing",
-              blurb: "AI-matched creators drove 12M+ organic views.",
+              media: "/videos/lilwayne.mp4",
+              type: "video",
+              client: "Lil Wayne",
+              service: "Recording Artist",
+              blurb: "A generational icon and the founder of Young Money. TopView connects that influence to brand campaigns built for a new digital era.",
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 3v18M5.6 5.6l12.8 12.8M3 12h18M5.6 18.4 18.4 5.6"/>
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
                 </svg>
               ),
             },
             {
-              img: "/images/work/law-firm.jpg",
-              client: "Premier Legal",
-              service: "Business Branding",
-              blurb: "Rebrand that doubled inbound consultations.",
+              media: "/images/work/iveenguyen.png",
+              type: "image",
+              client: "Iven Nguyen",
+              service: "Fashion & Lifestyle Creator",
+              blurb: "A fashion and lifestyle creator on the TopView roster — fronting national campaigns for Finish Line and PrettyLittleThing.",
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="8" r="6"/><path d="M15.5 12.5 17 22l-5-3-5 3 1.5-9.5"/>
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
                 </svg>
               ),
             },
             {
-              img: "/images/work/meal-prep.jpg",
-              client: "PrepNation",
-              service: "AI Automation",
-              blurb: "85% of operations automated end-to-end.",
+              media: "/videos/juicewrld.mp4",
+              type: "video",
+              client: "Juice WRLD",
+              service: "Recording Artist",
+              blurb: "A pioneer of melodic, emotional rap whose legacy still moves millions. TopView helps carry that story to new audiences through content and community.",
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
                 </svg>
               ),
             },
             {
-              img: "/images/work/moroccan-tea.jpg",
-              client: "Marrakech Tea Co.",
-              service: "Brand Identity",
-              blurb: "Packaging that tripled retail shelf pickup.",
+              media: "/images/work/taymamba.jpg",
+              type: "image",
+              client: "Taymamba",
+              service: "Artist · Creator",
+              blurb: "A rising artist and creator building a devoted, fast-growing following. TopView drives the content and strategy behind the momentum.",
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                 </svg>
               ),
             },
-            {
-              img: "/images/work/nomad-tax.jpg",
-              client: "NomadTax",
-              service: "Business Branding",
-              blurb: "Conversion-first build that halved cost-per-lead.",
-              wide: true,
-              icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
-                </svg>
-              ),
-            },
           ].map((p, i) => (
             <div
               key={p.client}
-              className={`mkt-acc-card${p.wide ? " mkt-acc-card--wide" : ""}`}
+              className={`mkt-acc-card${expandedAcc === i ? " expanded" : ""}`}
               data-reveal="scale"
               data-d={String((i % 2) + 1)}
-              onClick={openModal}
+              onClick={() => setExpandedAcc(expandedAcc === i ? null : i)}
             >
-              <Image
-                src={p.img}
-                alt={p.client}
-                fill
-                sizes="(max-width: 767px) 100vw, 50vw"
-                style={{ objectFit: "cover" }}
-              />
+              {p.type === "video" ? (
+                <video src={p.media} autoPlay loop muted playsInline preload="metadata" />
+              ) : (
+                <Image
+                  src={p.media}
+                  alt={p.client}
+                  fill
+                  sizes="(max-width: 767px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              )}
               <div className="mkt-acc-overlay" />
               <div className="mkt-acc-body">
                 <div className="mkt-acc-icon">{p.icon}</div>
