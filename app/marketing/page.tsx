@@ -392,6 +392,13 @@ export default function MarketingPage() {
                 date: "2022",
                 href: "https://www.wishtv.com/news/local-news/topviews-rise-in-midwest-talent-management/",
               },
+              {
+                pub: "Pattern",
+                img: "https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,quality=80,format=auto,onerror=redirect/uploads/asset/file/a67adc3f-4dee-469f-9aa6-939e92e34c16/Pattern_COVER_Digital_July_001_10.625_x_14_.png?t=1751735246",
+                quote: "One-to-Many Vision, One Relationship at a Time",
+                date: "July 2025",
+                href: "https://pattern.beehiiv.com/p/july-digital-cover-story-sam-boro-fa3c4fc8b6e37137",
+              },
             ].map((a, i) => (
               <a
                 key={a.pub}

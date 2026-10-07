@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export default function LiquidGLInit() {
   useEffect(() => {
     const init = () => {
-      const lg = (window as any).liquidGL;
+      const lg = (window as Window & { liquidGL?: (config: Record<string, unknown>) => void }).liquidGL;
       if (!lg) return;
       try {
         lg({

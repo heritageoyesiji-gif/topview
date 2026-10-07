@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { MousePointer2, ArrowRight, ChevronDown } from "lucide-react";
@@ -41,11 +42,6 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [servicesOpen]);
-
-  // Close when switching away from marketing
-  useEffect(() => {
-    if (mode !== "marketing") setServicesOpen(false);
-  }, [mode]);
 
   const scrollToServices = () => {
     const el = document.getElementById("marketing-services");
@@ -134,7 +130,7 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
       </div>
 
       {/* Center: logo — absolute so it never squeezes the left pill */}
-      <a
+      <Link
         href="/"
         className="absolute left-1/2 -translate-x-1/2 select-none"
       >
@@ -143,7 +139,7 @@ export default function Header({ mode, onToggle, onOpenContact }: HeaderProps) {
           alt="TopView"
           className="h-8 md:h-10 w-auto"
         />
-      </a>
+      </Link>
 
       {/* Right: icon + CTA — grouped so hovering either turns both white */}
       <div

@@ -7,16 +7,40 @@ interface HeroCanvasProps {
   loaded: boolean;
 }
 
+type HeroState = {
+  OFF?: number;
+  parallax?: { x: number; y: number };
+  anim?: { reveal: number };
+  timers?: ReturnType<typeof setTimeout>[];
+  raf?: number;
+  LUTN?: number;
+  ASIN?: Float32Array;
+  field?: Float32Array;
+  FS?: number;
+  grain?: HTMLCanvasElement;
+  grainPattern?: CanvasPattern | null;
+  ctx?: CanvasRenderingContext2D;
+  offcanvas?: HTMLCanvasElement;
+  octx?: CanvasRenderingContext2D;
+  img?: ImageData;
+  W?: number;
+  H?: number;
+  dpr?: number;
+  orbDia?: number;
+  qx?: (value: number) => void;
+  qy?: (value: number) => void;
+};
+
 export default function HeroCanvas({ loaded }: HeroCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const stateRef = useRef<Record<string, any>>({});
+  const stateRef = useRef<HeroState>({});
 
   useEffect(() => {
     const cv = canvasRef.current;
     if (!cv) return;
 
     const OFF = 384;
-    const s = stateRef.current;
+    const s = stateRef.current as Required<HeroState>;
     s.OFF = OFF;
     s.parallax = { x: 0, y: 0 };
     s.anim = { reveal: 0 };
@@ -176,7 +200,7 @@ export default function HeroCanvas({ loaded }: HeroCanvasProps) {
           let lit = (d + 0.05) / 0.26;
           if (lit < 0) lit = 0; else if (lit > 1) lit = 1;
           const direct = d > 0 ? d : 0;
-          let inten = 0.04 + lit * (0.34 + 0.66 * direct);
+          const inten = 0.04 + lit * (0.34 + 0.66 * direct);
           const limb = 0.62 + 0.38 * nz;
           const shade = albedo * inten * limb;
           let R = shade * 92, G = shade * 102, B = shade * 120;
