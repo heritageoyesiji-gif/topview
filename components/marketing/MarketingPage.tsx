@@ -505,10 +505,10 @@ export default function MarketingPage({ visible, onOpenContact }: MarketingPageP
                 className="display font-black uppercase text-white leading-none"
                 style={{ fontSize: "clamp(1.6rem, 2.4vw, 2.6rem)" }}
               >
-                Let's build something they can't ignore.
+               Let&apos;s build something they can&apos;t ignore.
               </h3>
               <p className="text-white/45 text-sm leading-relaxed font-sans">
-                Walk us through your brand — we'll show you exactly where we'd take it.
+                Walk us through your brand — we&apos;ll show you exactly where we&apos;d take it.
               </p>
             </div>
 

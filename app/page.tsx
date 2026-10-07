@@ -169,13 +169,22 @@ export default function Page() {
     return () => obs.disconnect();
   }, []);
 
+  const openModal = useCallback(() => {
+    setModalOpen(true);
+    lockScroll();
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalOpen(false);
+    unlockScroll();
+  }, []);
+
   // ── Escape key closes modal
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") closeModal(); };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [closeModal]);
 
   // ── Carousels
   useCarousel(rosterTrackRef, rosterPrevRef, rosterNextRef, rosterDotsRef);
@@ -198,17 +207,6 @@ export default function Page() {
       return obs;
     });
     return () => observers.forEach((o) => o?.disconnect());
-  }, []);
-
-  // ── Modal helpers
-  const openModal = useCallback(() => {
-    setModalOpen(true);
-    lockScroll();
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setModalOpen(false);
-    unlockScroll();
   }, []);
 
   function handleSubmit(e: React.FormEvent) {

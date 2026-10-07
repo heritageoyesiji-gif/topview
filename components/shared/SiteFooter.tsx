@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 export default function SiteFooter({ onOpenContact }: { onOpenContact: () => void }) {
@@ -82,9 +83,9 @@ export default function SiteFooter({ onOpenContact }: { onOpenContact: () => voi
         <div className="footer-bar">
           <div className="footer-bar-content">
             <nav className="footer-nav">
-              <a href="/">Talent</a>
-              <a href="/marketing">Marketing</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); onOpenContact(); }}>Contact</a>
+              <Link href="/">Talent</Link>
+              <Link href="/marketing">Marketing</Link>
+              <button type="button" onClick={onOpenContact}>Contact</button>
             </nav>
             <p className="footer-tagline">The Next Digital<br />Generation</p>
             <div className="footer-socials">

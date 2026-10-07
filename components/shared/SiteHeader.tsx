@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 interface SiteHeaderProps {
   activePill?: "talent" | "marketing";
   onTalentClick?: () => void;
@@ -32,9 +34,9 @@ export default function SiteHeader({
         </div>
       </div>
 
-      <a href="/" className="logo">
+      <Link href="/" className="logo">
         <img src="/logos/topview-white.png" alt="TopView" style={{ height: "76px", width: "auto" }} />
-      </a>
+      </Link>
 
       <div className="header-right">
         <div className="btn-group" onClick={onOpenContact}>
