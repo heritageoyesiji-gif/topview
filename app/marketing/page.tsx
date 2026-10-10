@@ -32,21 +32,29 @@ export default function MarketingPage() {
   /* Set light theme on body for this page */
   useEffect(() => {
     document.body.style.background = "#fff";
-    document.body.style.color      = "#111";
+    document.body.style.color = "#111";
     return () => {
       document.body.style.background = "";
-      document.body.style.color      = "";
+      document.body.style.color = "";
     };
   }, []);
 
-  const openModal  = useCallback(() => { setModalOpen(true);  document.body.style.overflow = "hidden"; }, []);
-  const closeModal = useCallback(() => { setModalOpen(false); document.body.style.overflow = "";       }, []);
+  const openModal = useCallback(() => {
+    setModalOpen(true);
+    document.body.style.overflow = "hidden";
+  }, []);
+  const closeModal = useCallback(() => {
+    setModalOpen(false);
+    document.body.style.overflow = "";
+  }, []);
 
   return (
     <div className="mkt-page">
       <SiteHeader
         activePill="marketing"
-        onTalentClick={() => transitionTo("/", "#0d0d0d", () => router.push("/"))}
+        onTalentClick={() =>
+          transitionTo("/", "#0d0d0d", () => router.push("/"))
+        }
         onMarketingClick={() => {}}
         onOpenContact={openModal}
       />
@@ -54,7 +62,6 @@ export default function MarketingPage() {
       {/* ══ SECTION 1: HERO ══ */}
       <section className="mkt-hero">
         <div className="mkt-hero-left">
-
           {/* Availability badge */}
           <div className="mkt-badge" data-reveal>
             <span className="mkt-badge-dot" />
@@ -63,9 +70,12 @@ export default function MarketingPage() {
 
           {/* Display headline */}
           <h1 className="mkt-hero-title" data-reveal data-d="1">
-            Marketing<br />
-            That <em>Actually</em><br />
-            Moves The<br />
+            Marketing
+            <br />
+            That <em>Actually</em>
+            <br />
+            Moves The
+            <br />
             Needle.
           </h1>
 
@@ -77,13 +87,28 @@ export default function MarketingPage() {
           <div className="mkt-hero-actions" data-reveal data-d="3">
             <button className="mkt-btn-primary" onClick={openModal}>
               Work With Us
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M7 17L17 7" />
+                <path d="M7 7h10v10" />
               </svg>
             </button>
-            <button className="mkt-btn-secondary" onClick={() => {
-              document.getElementById("mkt-work")?.scrollIntoView({ behavior: "smooth" });
-            }}>
+            <button
+              className="mkt-btn-secondary"
+              onClick={() => {
+                document
+                  .getElementById("mkt-work")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
               See Our Work
             </button>
           </div>
@@ -91,23 +116,64 @@ export default function MarketingPage() {
 
         {/* Decorative right side */}
         <div className="mkt-hero-right" aria-hidden="true">
-          <svg className="mkt-hero-deco-svg" viewBox="0 0 480 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className="mkt-hero-deco-svg"
+            viewBox="0 0 480 560"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             {/* Outer ring */}
-            <circle cx="240" cy="300" r="230" stroke="#efefef" strokeWidth="60"/>
+            <circle
+              cx="240"
+              cy="300"
+              r="230"
+              stroke="#efefef"
+              strokeWidth="60"
+            />
             {/* Mid ring */}
-            <circle cx="240" cy="300" r="150" stroke="#f5f5f5" strokeWidth="32"/>
+            <circle
+              cx="240"
+              cy="300"
+              r="150"
+              stroke="#f5f5f5"
+              strokeWidth="32"
+            />
             {/* Center fill */}
-            <circle cx="240" cy="300" r="80" fill="#f7f7f7"/>
+            <circle cx="240" cy="300" r="80" fill="#f7f7f7" />
             {/* Accent dots */}
-            <circle cx="440" cy="100" r="10" fill="#e8e8e8"/>
-            <circle cx="60"  cy="80"  r="6"  fill="#e8e8e8"/>
-            <circle cx="420" cy="480" r="7"  fill="#ebebeb"/>
+            <circle cx="440" cy="100" r="10" fill="#e8e8e8" />
+            <circle cx="60" cy="80" r="6" fill="#e8e8e8" />
+            <circle cx="420" cy="480" r="7" fill="#ebebeb" />
             {/* Diagonal line detail */}
-            <line x1="50"  y1="520" x2="430" y2="80"  stroke="#f0f0f0" strokeWidth="1"/>
-            <line x1="100" y1="540" x2="460" y2="120" stroke="#f4f4f4" strokeWidth="1"/>
+            <line
+              x1="50"
+              y1="520"
+              x2="430"
+              y2="80"
+              stroke="#f0f0f0"
+              strokeWidth="1"
+            />
+            <line
+              x1="100"
+              y1="540"
+              x2="460"
+              y2="120"
+              stroke="#f4f4f4"
+              strokeWidth="1"
+            />
             {/* Small notch arcs */}
-            <path d="M240 70 A230 230 0 0 1 460 280" stroke="#e4e4e4" strokeWidth="2" strokeLinecap="round"/>
-            <path d="M240 530 A230 230 0 0 1 20 300"  stroke="#e4e4e4" strokeWidth="2" strokeLinecap="round"/>
+            <path
+              d="M240 70 A230 230 0 0 1 460 280"
+              stroke="#e4e4e4"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+            <path
+              d="M240 530 A230 230 0 0 1 20 300"
+              stroke="#e4e4e4"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
           </svg>
         </div>
       </section>
@@ -121,7 +187,11 @@ export default function MarketingPage() {
                 <img
                   src={logo.src}
                   alt={logo.name}
-                  style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
+                  style={
+                    logo.scale
+                      ? { transform: `scale(${logo.scale})` }
+                      : undefined
+                  }
                 />
               </div>
             ))}
@@ -134,21 +204,28 @@ export default function MarketingPage() {
         <video
           className="mkt-pain-video"
           src="/videos/hero.mp4"
-          autoPlay loop muted playsInline
+          autoPlay
+          loop
+          muted
+          playsInline
         />
         <div className="mkt-pain-overlay" />
 
         <div className="mkt-pain-content">
           <div className="mkt-pain-label">Hello, we are TopView</div>
           <h2 className="mkt-pain-title">
-            You&apos;re Putting<br />
-            In The Work.<br />
-            But The Results<br />
+            You&apos;re Putting
+            <br />
+            In The Work.
+            <br />
+            But The Results
+            <br />
             <em>Aren&apos;t Keeping Up.</em>
           </h2>
           <p className="mkt-pain-sub">
             Most brands have the product. What they&apos;re missing is the right
-            strategy, creative, and execution to actually move the needle online.
+            strategy, creative, and execution to actually move the needle
+            online.
           </p>
         </div>
       </section>
@@ -158,15 +235,23 @@ export default function MarketingPage() {
         <p className="mkt-features-eyebrow">What We Do</p>
 
         <div className="mkt-features-grid">
-
           {/* AI Influencer Marketing */}
           <div className="mkt-feature-cell">
             <div className="mkt-feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2z"/>
-                <path d="M2 20c0-4 4-7 10-7"/>
-                <path d="M19 16l-2 2 4 4"/>
-                <circle cx="19" cy="13" r="2"/>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2z" />
+                <path d="M2 20c0-4 4-7 10-7" />
+                <path d="M19 16l-2 2 4 4" />
+                <circle cx="19" cy="13" r="2" />
               </svg>
             </div>
             <span className="mkt-feature-label">AI Influencer Marketing</span>
@@ -175,10 +260,21 @@ export default function MarketingPage() {
           {/* Influencer Marketing */}
           <div className="mkt-feature-cell">
             <div className="mkt-feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                <line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                <line x1="6" y1="1" x2="6" y2="4" />
+                <line x1="10" y1="1" x2="10" y2="4" />
+                <line x1="14" y1="1" x2="14" y2="4" />
               </svg>
             </div>
             <span className="mkt-feature-label">Influencer Marketing</span>
@@ -187,8 +283,17 @@ export default function MarketingPage() {
           {/* AI Automation */}
           <div className="mkt-feature-cell">
             <div className="mkt-feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
             </div>
             <span className="mkt-feature-label">AI Automation</span>
@@ -197,10 +302,19 @@ export default function MarketingPage() {
           {/* Lead Generation */}
           <div className="mkt-feature-cell">
             <div className="mkt-feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <circle cx="12" cy="12" r="6"/>
-                <circle cx="12" cy="12" r="2"/>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="6" />
+                <circle cx="12" cy="12" r="2" />
               </svg>
             </div>
             <span className="mkt-feature-label">Lead Generation</span>
@@ -209,13 +323,22 @@ export default function MarketingPage() {
           {/* Business Branding */}
           <div className="mkt-feature-cell">
             <div className="mkt-feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
-                <line x1="5" y1="7" x2="5" y2="7.01"/>
-                <line x1="8" y1="7" x2="8" y2="7.01"/>
-                <line x1="11" y1="7" x2="19" y2="7"/>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+                <line x1="5" y1="7" x2="5" y2="7.01" />
+                <line x1="8" y1="7" x2="8" y2="7.01" />
+                <line x1="11" y1="7" x2="19" y2="7" />
               </svg>
             </div>
             <span className="mkt-feature-label">Business Branding</span>
@@ -224,14 +347,22 @@ export default function MarketingPage() {
           {/* Backend Development */}
           <div className="mkt-feature-cell">
             <div className="mkt-feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="16 18 22 12 16 6"/>
-                <polyline points="8 6 2 12 8 18"/>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
               </svg>
             </div>
             <span className="mkt-feature-label">Backend Development</span>
           </div>
-
         </div>
       </section>
 
@@ -240,15 +371,19 @@ export default function MarketingPage() {
         <div className="mkt-services-intro">
           <p className="mkt-services-eyebrow">Our Services</p>
           <h2 className="mkt-services-title" data-reveal>
-            Everything Your<br />Brand Needs<br />To Win Online.
+            Everything Your
+            <br />
+            Brand Needs
+            <br />
+            To Win Online.
           </h2>
           <p className="mkt-services-sub">
-            Full-service solutions built for creators, brands, and businesses ready to grow.
+            Full-service solutions built for creators, brands, and businesses
+            ready to grow.
           </p>
         </div>
 
         <div className="mkt-services-grid">
-
           {[
             {
               num: "01",
@@ -286,14 +421,23 @@ export default function MarketingPage() {
               <h3 className="mkt-svc-name">{svc.name}</h3>
               <p className="mkt-svc-desc">{svc.desc}</p>
               <div className="mkt-svc-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
                 </svg>
               </div>
               <div className="mkt-svc-underline" />
             </div>
           ))}
-
         </div>
       </section>
 
@@ -302,7 +446,11 @@ export default function MarketingPage() {
         <div className="mkt-results-header">
           <p className="mkt-results-eyebrow">Impact</p>
           <h2 className="mkt-results-title" data-reveal>
-            Numbers That<br />Speak For<br />Themselves.
+            Numbers That
+            <br />
+            Speak For
+            <br />
+            Themselves.
           </h2>
         </div>
 
@@ -341,7 +489,12 @@ export default function MarketingPage() {
               tags: ["Design", "Dev", "CRO"],
             },
           ].map((c, i) => (
-            <div key={c.stat} className="mkt-result-card" data-reveal="scale" data-d={String(i + 1)}>
+            <div
+              key={c.stat}
+              className="mkt-result-card"
+              data-reveal="scale"
+              data-d={String(i + 1)}
+            >
               <video src={c.video} autoPlay loop muted playsInline />
               <div className="mkt-result-card-overlay" />
               <div className="mkt-result-inner">
@@ -352,14 +505,40 @@ export default function MarketingPage() {
                   <div className="mkt-result-divider" />
                   <p className="mkt-result-desc">{c.desc}</p>
                   <div className="mkt-result-tags">
-                    {c.tags.map(t => (
-                      <span key={t} className="mkt-result-tag">{t}</span>
+                    {c.tags.map((t) => (
+                      <span key={t} className="mkt-result-tag">
+                        {t}
+                      </span>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mkt-works-link-wrap">
+          <a
+            href="https://topview-social-media.onrender.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mkt-works-link-card"
+            aria-label="Visit Our Works"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.1) 100%), url('/images/work/pushaT.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="mkt-works-link-copy">
+              <span className="mkt-works-link-label">Explore</span>
+              <h3>Our Works</h3>
+            </div>
+            <span className="mkt-works-link-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
         </div>
 
         {/* Press / articles about the agency */}
@@ -374,14 +553,16 @@ export default function MarketingPage() {
               {
                 pub: "New York Weekly",
                 img: "/images/work/nytopview.png",
-                quote: "The Journey to Success: Sam Boro on Building Talent & Marketing Agency TopView.",
+                quote:
+                  "The Journey to Success: Sam Boro on Building Talent & Marketing Agency TopView.",
                 date: "May 2022",
                 href: "https://nyweekly.com/business/the-journey-to-success-sam-boro-on-building-talent-and-marketing-agency-topview/",
               },
               {
                 pub: "USA Wire",
                 img: "/images/work/usawiretopview.png",
-                quote: "TopView, the fastest growing talent management company in the Midwest.",
+                quote:
+                  "TopView, the fastest growing talent management company in the Midwest.",
                 date: "Aug 2022",
                 href: "https://usawire.com/topview-the-fastest-growing-talent-management-company-in-the-midwest/",
               },
@@ -410,7 +591,11 @@ export default function MarketingPage() {
                 data-d={String(i + 1)}
               >
                 <div className="mkt-press-thumb">
-                  <img src={a.img} alt={`${a.pub} — ${a.quote}`} loading="lazy" />
+                  <img
+                    src={a.img}
+                    alt={`${a.pub} — ${a.quote}`}
+                    loading="lazy"
+                  />
                 </div>
                 <div className="mkt-press-body">
                   <p className="mkt-press-quote">{a.quote}</p>
@@ -421,8 +606,18 @@ export default function MarketingPage() {
                     </div>
                     <span className="mkt-press-read">
                       Read
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17L17 7" />
+                        <path d="M7 7h10v10" />
                       </svg>
                     </span>
                   </div>
@@ -440,7 +635,9 @@ export default function MarketingPage() {
           <div>
             <p className="mkt-work-eyebrow">Recognition</p>
             <h2 className="mkt-work-title" data-reveal>
-              Accolades<br />(Impact).
+              Accolades
+              <br />
+              (Impact).
             </h2>
           </div>
           <span className="mkt-work-count">06 Accolades</span>
@@ -454,10 +651,20 @@ export default function MarketingPage() {
               type: "video",
               client: "Druski",
               service: "Comedian · Creator",
-              blurb: "The comedian rewriting internet culture one viral sketch at a time. TopView powers the branded content and creator campaigns that turn his reach into results.",
+              blurb:
+                "The comedian rewriting internet culture one viral sketch at a time. TopView powers the branded content and creator campaigns that turn his reach into results.",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="5 3 19 12 5 21 5 3"/>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
               ),
             },
@@ -466,10 +673,23 @@ export default function MarketingPage() {
               type: "image",
               client: "Pusha T",
               service: "Recording Artist",
-              blurb: "Rap purist, Clipse co-founder, the voice behind ‘King Push.’ TopView shapes the digital rollouts and brand moments built around his cultural weight.",
+              blurb:
+                "Rap purist, Clipse co-founder, the voice behind ‘King Push.’ TopView shapes the digital rollouts and brand moments built around his cultural weight.",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                  <line x1="12" y1="19" x2="12" y2="23" />
+                  <line x1="8" y1="23" x2="16" y2="23" />
                 </svg>
               ),
             },
@@ -478,10 +698,23 @@ export default function MarketingPage() {
               type: "video",
               client: "Lil Wayne",
               service: "Recording Artist",
-              blurb: "A generational icon and the founder of Young Money. TopView connects that influence to brand campaigns built for a new digital era.",
+              blurb:
+                "A generational icon and the founder of Young Money. TopView connects that influence to brand campaigns built for a new digital era.",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                  <line x1="12" y1="19" x2="12" y2="23" />
+                  <line x1="8" y1="23" x2="16" y2="23" />
                 </svg>
               ),
             },
@@ -490,10 +723,21 @@ export default function MarketingPage() {
               type: "image",
               client: "Iven Nguyen",
               service: "Fashion & Lifestyle Creator",
-              blurb: "A fashion and lifestyle creator on the TopView roster — fronting national campaigns for Finish Line and PrettyLittleThing.",
+              blurb:
+                "A fashion and lifestyle creator on the TopView roster — fronting national campaigns for Finish Line and PrettyLittleThing.",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                  <circle cx="12" cy="13" r="4" />
                 </svg>
               ),
             },
@@ -502,10 +746,23 @@ export default function MarketingPage() {
               type: "video",
               client: "Juice WRLD",
               service: "Recording Artist",
-              blurb: "A pioneer of melodic, emotional rap whose legacy still moves millions. TopView helps carry that story to new audiences through content and community.",
+              blurb:
+                "A pioneer of melodic, emotional rap whose legacy still moves millions. TopView helps carry that story to new audiences through content and community.",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                  <line x1="12" y1="19" x2="12" y2="23" />
+                  <line x1="8" y1="23" x2="16" y2="23" />
                 </svg>
               ),
             },
@@ -514,10 +771,20 @@ export default function MarketingPage() {
               type: "image",
               client: "Taymamba",
               service: "Artist · Creator",
-              blurb: "A rising artist and creator building a devoted, fast-growing following. TopView drives the content and strategy behind the momentum.",
+              blurb:
+                "A rising artist and creator building a devoted, fast-growing following. TopView drives the content and strategy behind the momentum.",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
               ),
             },
@@ -530,7 +797,14 @@ export default function MarketingPage() {
               onClick={() => setExpandedAcc(expandedAcc === i ? null : i)}
             >
               {p.type === "video" ? (
-                <video src={p.media} autoPlay loop muted playsInline preload="metadata" />
+                <video
+                  src={p.media}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
               ) : (
                 <Image
                   src={p.media}
@@ -559,8 +833,18 @@ export default function MarketingPage() {
         <div className="mkt-work-cta">
           <button className="mkt-portfolio-cta-btn" onClick={openModal}>
             Start A Project
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
             </svg>
           </button>
         </div>
@@ -571,7 +855,9 @@ export default function MarketingPage() {
         <div className="mkt-process-intro">
           <p className="mkt-process-eyebrow">How We Work</p>
           <h2 className="mkt-process-title" data-reveal>
-            A Process Built<br />For Results.
+            A Process Built
+            <br />
+            For Results.
           </h2>
         </div>
 
@@ -603,7 +889,12 @@ export default function MarketingPage() {
               desc: "What works gets amplified. We double down on the signals that drive growth and cut what doesn't earn its keep.",
             },
           ].map((s, i) => (
-            <div key={s.num} className="mkt-process-step" data-reveal="left" data-d={String(i + 1)}>
+            <div
+              key={s.num}
+              className="mkt-process-step"
+              data-reveal="left"
+              data-d={String(i + 1)}
+            >
               <div className="mkt-process-step-left">
                 <span className="mkt-process-num">{s.num}</span>
                 <div className="mkt-process-line" aria-hidden="true" />
@@ -619,8 +910,18 @@ export default function MarketingPage() {
         <div className="mkt-process-cta">
           <button className="mkt-btn-primary" onClick={openModal}>
             Start Your Project
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
             </svg>
           </button>
         </div>
@@ -631,7 +932,9 @@ export default function MarketingPage() {
         <div className="mkt-benefits-header">
           <p className="mkt-benefits-eyebrow">Why TopView</p>
           <h2 className="mkt-benefits-title" data-reveal>
-            Built Different.<br />Built to Win.
+            Built Different.
+            <br />
+            Built to Win.
           </h2>
           <p className="mkt-benefits-sub">
             Every agency promises results. We show up with the infrastructure,
@@ -643,8 +946,18 @@ export default function MarketingPage() {
           {[
             {
               icon: (
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 3v18h18" />
+                  <path d="m19 9-5 5-4-4-3 3" />
                 </svg>
               ),
               title: "Data-Driven Decisions",
@@ -652,8 +965,18 @@ export default function MarketingPage() {
             },
             {
               icon: (
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3m-3.22-6.78-2.12 2.12M7.34 16.66l-2.12 2.12m0-14.56 2.12 2.12m9.32 9.32 2.12 2.12"/>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 2v3m0 14v3M2 12h3m14 0h3m-3.22-6.78-2.12 2.12M7.34 16.66l-2.12 2.12m0-14.56 2.12 2.12m9.32 9.32 2.12 2.12" />
                 </svg>
               ),
               title: "AI-Powered Speed",
@@ -661,8 +984,18 @@ export default function MarketingPage() {
             },
             {
               icon: (
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M3 9h18M9 21V9" />
                 </svg>
               ),
               title: "Full-Service Execution",
@@ -670,8 +1003,18 @@ export default function MarketingPage() {
             },
             {
               icon: (
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                  <circle cx="12" cy="12" r="3" />
                 </svg>
               ),
               title: "Radical Transparency",
@@ -679,8 +1022,19 @@ export default function MarketingPage() {
             },
             {
               icon: (
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87m-4-12a4 4 0 0 1 0 7.75"/>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87m-4-12a4 4 0 0 1 0 7.75" />
                 </svg>
               ),
               title: "Senior Team, Always",
@@ -688,15 +1042,29 @@ export default function MarketingPage() {
             },
             {
               icon: (
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
               ),
               title: "Proven Track Record",
               desc: "250M+ views. 7.5× ROAS. 85% ops reduction. Results you can verify — not case studies we wrote ourselves.",
             },
           ].map((b, i) => (
-            <div key={b.title} className="mkt-benefit-card" data-reveal data-d={String((i % 3) + 1)}>
+            <div
+              key={b.title}
+              className="mkt-benefit-card"
+              data-reveal
+              data-d={String((i % 3) + 1)}
+            >
               <div className="mkt-benefit-icon">{b.icon}</div>
               <h3 className="mkt-benefit-title">{b.title}</h3>
               <p className="mkt-benefit-desc">{b.desc}</p>
@@ -707,8 +1075,18 @@ export default function MarketingPage() {
         <div className="mkt-benefits-cta">
           <button className="mkt-btn-primary" onClick={openModal}>
             Work With Us
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
             </svg>
           </button>
           <button className="mkt-btn-ghost" onClick={openModal}>
