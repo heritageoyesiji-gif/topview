@@ -623,8 +623,33 @@ export default function Page() {
         <div className="carousel-dots" ref={rosterDotsRef} />
       </section>
 
-      {/* ── Page 6: Brand Collaborations Carousel ── */}
-      <section className="carousel-section" id="collaborations">
+        <section className="portfolio-link-section" aria-label="Our portfolio">
+          <a
+            href="https://topview-social-media.onrender.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="portfolio-link-card"
+          >
+            <div className="portfolio-link-copy">
+              <span className="portfolio-link-label">Our Portfolio</span>
+              <h3>Our Works</h3>
+            </div>
+
+            <div className="portfolio-link-action">
+              <div className="portfolio-link-arrow" aria-hidden="true">↗</div>
+              <span className="cta-btn glass portfolio-link-btn">
+                Explore
+                <svg className="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        </section>
+
+        {/* ── Page 6: Brand Collaborations Carousel ── */}
+        <section className="carousel-section" id="collaborations">
         <div className="carousel-header">
           <div data-reveal>
             <p className="carousel-label">What We Do</p>
