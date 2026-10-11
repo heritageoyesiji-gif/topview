@@ -440,6 +440,106 @@ header {
   backdrop-filter: blur(8px);
 }
 
+/* â”€â”€ Portfolio / external showcase link â”€â”€ */
+.portfolio-link-section {
+  padding: 0 48px 24px;
+}
+.portfolio-link-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 280px;
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: 28px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background-image:
+    linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 42%, rgba(0,0,0,0.18) 100%),
+    url('/images/work/pushaT.jpg');
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.portfolio-link-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0.08));
+}
+.portfolio-link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 28px 72px rgba(0,0,0,0.45);
+  border-color: rgba(255,255,255,0.22);
+}
+.portfolio-link-copy,
+.portfolio-link-action {
+  position: relative;
+  z-index: 1;
+}
+.portfolio-link-copy {
+  max-width: 520px;
+}
+.portfolio-link-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.7);
+}
+.portfolio-link-copy h3 {
+  font-family: var(--font-display, 'Barlow Condensed', sans-serif);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.portfolio-link-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.portfolio-link-arrow {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+  font-size: 36px;
+  line-height: 1;
+  color: #fff;
+}
+.portfolio-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 182px;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.portfolio-link-card:hover .portfolio-link-btn,
+.portfolio-link-card:hover .portfolio-link-arrow {
+  background: #fff;
+  color: #111;
+}
+.portfolio-link-card:hover .portfolio-link-btn .arrow {
+  transform: translateX(4px);
+}
+
 /* â”€â”€ Shared Carousel (pages 5 & 6) â”€â”€ */
 @keyframes explore-rotate { to { transform: rotate(360deg); } }
 

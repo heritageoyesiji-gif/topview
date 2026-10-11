@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@next/third-parties": "^16.4.0",
     "@radix-ui/react-dialog": "^1.1.17",
     "@radix-ui/react-toggle-group": "^1.1.13",
     "@studio-freight/lenis": "^1.0.42",
