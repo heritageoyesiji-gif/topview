@@ -517,30 +517,6 @@ export default function MarketingPage() {
           ))}
         </div>
 
-        <div className="mkt-works-link-wrap">
-          <a
-            href="https://topview-social-media.onrender.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mkt-works-link-card"
-            aria-label="Visit Our Works"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.1) 100%), url('/images/work/pushaT.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="mkt-works-link-copy">
-              <span className="mkt-works-link-label">Explore</span>
-              <h3>Our Works</h3>
-            </div>
-            <span className="mkt-works-link-arrow" aria-hidden="true">
-              ↗
-            </span>
-          </a>
-        </div>
-
         {/* Press / articles about the agency */}
         <div className="mkt-press">
           <div className="mkt-press-head">
