@@ -6,6 +6,7 @@ import PageTransitionOverlay from "@/components/layout/PageTransitionOverlay";
 import ScrollRevealInit from "@/components/layout/ScrollRevealInit";
 import MoonLoader from "@/components/layout/MoonLoader";
 import Prefetcher from "@/components/layout/Prefetcher";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geist = Geist({
   variable: "--font-sans",
@@ -23,14 +24,28 @@ const barlowCondensed = Barlow_Condensed({
 export const metadata: Metadata = {
   title: "TopView — Talent Management",
   description: "The authority on the next generation of digital creators.",
-  icons: {
-    icon: [
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  metadataBase: new URL("https://topview0.com"),
+  openGraph: {
+    title: "TopView — Talent Management",
+    description: "The authority on the next generation of digital creators.",
+    url: "https://topview0.com",
+    siteName: "TopView",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    type: "website",
   },
-  manifest: "/site.webmanifest",
+  twitter: {
+    card: "summary_large_image",
+    title: "TopView — Talent Management",
+    description: "The authority on the next generation of digital creators.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://topview0.com",
+  },
 };
 
 export default function RootLayout({
@@ -39,9 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} ${barlowCondensed.variable}`}>
       <body className="bg-black text-white antialiased overflow-x-hidden">
-        <SmoothScrollProvider>
-          {children}
-        </SmoothScrollProvider>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <Prefetcher />
         <MoonLoader />
         <PageTransitionOverlay />
@@ -56,6 +69,7 @@ export default function RootLayout({
             pointerEvents: "none",
           }}
         />
+        <GoogleAnalytics gaId="G-1MFY9XF70D" />
       </body>
     </html>
   );
