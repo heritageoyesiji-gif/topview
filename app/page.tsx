@@ -99,6 +99,66 @@ function useCarousel(
 }
 
 
+function LazyVideo({
+ src,
+ className,
+ poster,
+ autoPlay = true,
+ loop = true,
+ muted = true,
+ playsInline = true,
+ preload = "none",
+}: {
+ src: string;
+ className?: string;
+ poster?: string;
+ autoPlay?: boolean;
+ loop?: boolean;
+ muted?: boolean;
+ playsInline?: boolean;
+ preload?: "none" | "metadata" | "auto";
+}) {
+ const ref = useRef<HTMLVideoElement | null>(null);
+ const [shouldLoad, setShouldLoad] = useState(false);
+
+ useEffect(() => {
+   const video = ref.current;
+   if (!video) return;
+
+   const observer = new IntersectionObserver((entries) => {
+     if (!entries[0]?.isIntersecting) return;
+     setShouldLoad(true);
+     observer.disconnect();
+   }, { rootMargin: "300px 0px" });
+
+   observer.observe(video);
+   return () => observer.disconnect();
+ }, []);
+
+ useEffect(() => {
+   const video = ref.current;
+   if (!video || !shouldLoad) return;
+   video.load();
+   if (autoPlay) {
+     video.play().catch(() => {});
+   }
+ }, [shouldLoad, autoPlay]);
+
+ return (
+   <video
+     ref={ref}
+     className={className}
+     src={shouldLoad ? src : undefined}
+     poster={poster}
+     autoPlay={autoPlay}
+     loop={loop}
+     muted={muted}
+     playsInline={playsInline}
+     preload={preload}
+   />
+ );
+}
+
 /* ─────────────────────────────────────────
    Main page
 ───────────────────────────────────────── */
@@ -336,17 +396,17 @@ export default function Page() {
         <h2 className="inline-heading">
           <div className="heading-line" data-reveal data-d="1">
             <span>TopView</span>
-            <span className="vid-wrap"><video src="/videos/talent-1.mp4" autoPlay loop muted playsInline preload="none" /></span>
+            <span className="vid-wrap"><LazyVideo src="/videos/talent-1.mp4" autoPlay={false} loop muted playsInline preload="none" /></span>
             <span>Represents</span>
           </div>
           <div className="heading-line" data-reveal data-d="2">
             <span>The Voices</span>
-            <span className="vid-wrap"><video src="/videos/talent-2.mp4" autoPlay loop muted playsInline preload="none" /></span>
+            <span className="vid-wrap"><LazyVideo src="/videos/talent-2.mp4" autoPlay={false} loop muted playsInline preload="none" /></span>
             <span>Shaping</span>
           </div>
           <div className="heading-line" data-reveal data-d="3">
             <span>Culture</span>
-            <span className="vid-wrap"><video src="/videos/talent-3.mp4" autoPlay loop muted playsInline preload="none" /></span>
+            <span className="vid-wrap"><LazyVideo src="/videos/talent-3.mp4" autoPlay={false} loop muted playsInline preload="none" /></span>
             <span>Online</span>
           </div>
         </h2>
@@ -377,7 +437,7 @@ export default function Page() {
           {/* Card 1 — Talent Management → links to /talent */}
           <div className="card" data-reveal="scale" data-d="1" onClick={() => router.push("/talent")} style={{ cursor: "pointer" }}>
             <div className="card-video">
-              <video src="/videos/talent-1.mp4" autoPlay loop muted playsInline />
+              <LazyVideo src="/videos/talent-1.mp4" autoPlay={false} loop muted playsInline preload="none" />
             </div>
             <div className="card-overlay" />
             <div className="explore-badge">
@@ -408,7 +468,7 @@ export default function Page() {
           {/* Card 2 — Brand Partnerships */}
           <div className="card" data-reveal="scale" data-d="2">
             <div className="card-video">
-              <video src="/videos/talentroster-4.mp4" autoPlay loop muted playsInline />
+              <LazyVideo src="/videos/talentroster-4.mp4" autoPlay={false} loop muted playsInline preload="none" />
             </div>
             <div className="card-overlay" />
             <div className="explore-badge">
@@ -440,7 +500,7 @@ export default function Page() {
           {/* Card 3 — Media Production */}
           <div className="card" data-reveal="scale" data-d="3">
             <div className="card-video">
-              <video src="/videos/talent-3.mp4" autoPlay loop muted playsInline />
+              <LazyVideo src="/videos/talent-3.mp4" autoPlay={false} loop muted playsInline preload="none" />
             </div>
             <div className="card-overlay" />
             <div className="explore-badge">
@@ -489,7 +549,7 @@ export default function Page() {
         <div className="carousel-track-wrap">
           <div className="carousel-track" ref={rosterTrackRef}>
             <div className="c-card active">
-              <video src="/videos/talentroster-1.mp4" poster="/images/posters/talentroster-1.jpg" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/talentroster-1.mp4" poster="/images/posters/talentroster-1.jpg" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -515,7 +575,7 @@ export default function Page() {
             </div>
 
             <div className="c-card inactive">
-              <video src="/videos/talentroster-2.mp4" poster="/images/posters/talentroster-2.jpg" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/talentroster-2.mp4" poster="/images/posters/talentroster-2.jpg" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -541,7 +601,7 @@ export default function Page() {
             </div>
 
             <div className="c-card inactive">
-              <video src="/videos/talentroster-3.mp4" poster="/images/posters/talentroster-3.jpg" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/talentroster-3.mp4" poster="/images/posters/talentroster-3.jpg" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -567,7 +627,7 @@ export default function Page() {
             </div>
 
             <div className="c-card inactive">
-              <video src="/videos/talentroster-4.mp4" poster="/images/posters/talentroster-4.jpg" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/talentroster-4.mp4" poster="/images/posters/talentroster-4.jpg" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -593,7 +653,7 @@ export default function Page() {
             </div>
 
             <div className="c-card inactive">
-              <video src="/videos/talentroster-5.mp4" poster="/images/posters/talentroster-5.jpg" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/talentroster-5.mp4" poster="/images/posters/talentroster-5.jpg" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -686,7 +746,7 @@ export default function Page() {
             </div>
 
             <div className="c-card inactive">
-              <video src="/videos/cheigboups.mp4" poster="/images/posters/cheigboups.jpg" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/cheigboups.mp4" poster="/images/posters/cheigboups.jpg" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -708,7 +768,7 @@ export default function Page() {
             </div>
 
             <div className="c-card inactive">
-              <video src="/videos/enzobrand.mp4" poster="/images/posters/enzobrand.jpg" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/enzobrand.mp4" poster="/images/posters/enzobrand.jpg" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -730,7 +790,7 @@ export default function Page() {
             </div>
 
             <div className="c-card inactive">
-              <video src="/videos/talent-1.mp4" muted loop playsInline preload="none" />
+              <LazyVideo src="/videos/talent-1.mp4" autoPlay={false} muted loop playsInline preload="none" />
               <div className="c-overlay" />
               <div className="c-content">
                 <div className="c-inner">
@@ -758,7 +818,7 @@ export default function Page() {
 
       {/* ── Page 7: Footer CTA ── */}
       <section className="footer-cta" id="footer" ref={footerSectionRef}>
-        <video className="footer-bg-video" src="/videos/footer.mp4" autoPlay loop muted playsInline preload="none" />
+        <LazyVideo className="footer-bg-video" src="/videos/footer.mp4" autoPlay={false} loop muted playsInline preload="none" />
 
         <div className="footer-content-wrap" ref={footerWrapRef}>
           <div className="footer-bg-overlay" />
